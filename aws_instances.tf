@@ -22,7 +22,7 @@ resource "aws_instance" "web_server" {
   user_data_replace_on_change = true
 
   tags = {
-    Server = "Web_Server"
+    "Name" = "Web_Server"
   }
 }
 
@@ -39,7 +39,7 @@ resource "aws_instance" "app_server" {
   user_data_replace_on_change = true
 
   tags = {
-    Server = "Application_Server"
+    "Name" = "Application_Server"
   }
 }
 
@@ -56,7 +56,7 @@ resource "aws_instance" "cache_server" {
   user_data_replace_on_change = true
 
   tags = {
-    Server = "Cache_Server"
+    "Name" = "Cache_Server"
   }
 }
 
@@ -73,7 +73,7 @@ resource "aws_instance" "data_server" {
   user_data_replace_on_change = true
 
   tags = {
-    Server = "DataStore_Server"
+    "Name" = "DataStore_Server"
   }
 }
 
