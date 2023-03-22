@@ -33,7 +33,7 @@ resource "aws_iam_instance_profile" "ssmprofile" {
 
 # Now Set SSM Permissions, SSM requires the following policy arn AmazonSSMManagedInstanceCore
 resource "aws_iam_role_policy_attachment" "ssm_permissions" {
-  policy_arn = "arn:aws:iam:aws:policy/AmazonSSMManagedInstanceCore"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
   role       = aws_iam_role.ssm.name
 }
 

@@ -73,28 +73,28 @@ resource "aws_lb" "data_srvr_lb" {
 resource "aws_lb_target_group" "web_srvr_tg" {
   name     = "WebSrvrTg"
   port     = tonumber(var.webport)
-  protocol = "tcp"
+  protocol = "TCP"
   vpc_id   = aws_vpc.rainpole_vpc.id
 }
 
 resource "aws_lb_target_group" "app_srvr_tg" {
   name     = "AppSrvrTg"
   port     = tonumber(var.appport)
-  protocol = "tcp"
+  protocol = "TCP"
   vpc_id   = aws_vpc.rainpole_vpc.id
 }
 
 resource "aws_lb_target_group" "cache_srvr_tg" {
   name     = "CacheSrvrTg"
   port     = tonumber(var.cacheport)
-  protocol = "tcp"
+  protocol = "TCP"
   vpc_id   = aws_vpc.rainpole_vpc.id
 }
 
 resource "aws_lb_target_group" "data_srvr_tg" {
   name     = "DataSrvrTg"
   port     = tonumber(var.dataport)
-  protocol = "tcp"
+  protocol = "TCP"
   vpc_id   = aws_vpc.rainpole_vpc.id
 }
 
@@ -103,7 +103,7 @@ resource "aws_lb_target_group" "data_srvr_tg" {
 resource "aws_lb_listener" "web_srvr_lb_listener" {
   load_balancer_arn = aws_lb.ext_lb.arn
   port              = var.webport
-  protocol          = "tcp"
+  protocol          = "TCP"
 
   default_action {
     type             = "forward"
@@ -114,7 +114,7 @@ resource "aws_lb_listener" "web_srvr_lb_listener" {
 resource "aws_lb_listener" "app_srvr_lb_listener" {
   load_balancer_arn = aws_lb.app_srvr_lb.arn
   port              = var.appport
-  protocol          = "tcp"
+  protocol          = "TCP"
 
   default_action {
     type             = "forward"
@@ -125,7 +125,7 @@ resource "aws_lb_listener" "app_srvr_lb_listener" {
 resource "aws_lb_listener" "cache_srvr_lb_listener" {
   load_balancer_arn = aws_lb.cache_srvr_lb.arn
   port              = var.cacheport
-  protocol          = "tcp"
+  protocol          = "TCP"
 
   default_action {
     type             = "forward"
@@ -136,7 +136,7 @@ resource "aws_lb_listener" "cache_srvr_lb_listener" {
 resource "aws_lb_listener" "data_srvr_lb_listener" {
   load_balancer_arn = aws_lb.data_srvr_lb.arn
   port              = var.dataport
-  protocol          = "tcp"
+  protocol          = "TCP"
 
   default_action {
     type             = "forward"
