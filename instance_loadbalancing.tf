@@ -71,28 +71,28 @@ resource "aws_lb" "data_srvr_lb" {
 # the TGs are the subset of EC2 instances targeted by the LB
 
 resource "aws_lb_target_group" "web_srvr_tg" {
-  name     = "web_server_tg"
+  name     = "WebSrvrTg"
   port     = tonumber(var.webport)
   protocol = "tcp"
   vpc_id   = aws_vpc.rainpole_vpc.id
 }
 
 resource "aws_lb_target_group" "app_srvr_tg" {
-  name     = "app_server_tg"
+  name     = "AppSrvrTg"
   port     = tonumber(var.appport)
   protocol = "tcp"
   vpc_id   = aws_vpc.rainpole_vpc.id
 }
 
 resource "aws_lb_target_group" "cache_srvr_tg" {
-  name     = "cache_server_tg"
+  name     = "CacheSrvrTg"
   port     = tonumber(var.cacheport)
   protocol = "tcp"
   vpc_id   = aws_vpc.rainpole_vpc.id
 }
 
 resource "aws_lb_target_group" "data_srvr_tg" {
-  name     = "data_server_tg"
+  name     = "DataSrvrTg"
   port     = tonumber(var.dataport)
   protocol = "tcp"
   vpc_id   = aws_vpc.rainpole_vpc.id

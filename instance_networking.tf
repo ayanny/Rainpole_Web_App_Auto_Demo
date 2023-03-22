@@ -18,31 +18,31 @@ resource "aws_vpc" "rainpole_vpc" {
 resource "aws_subnet" "external_Access" {
   vpc_id            = aws_vpc.rainpole_vpc.id
   cidr_block        = "10.0.0.0/24"
-  availability_zone = data.aws_availability_zone.available.name[0]
+  availability_zone = data.aws_availability_zones.available.name[0]
 }
 
 resource "aws_subnet" "web_subnet" {
   vpc_id            = aws_vpc.rainpole_vpc.id
   cidr_block        = "10.0.1.0/24"
-  availability_zone = data.aws_availability_zone.available.name[0]
+  availability_zone = data.aws_availability_zones.available.name[0]
 }
 
 resource "aws_subnet" "app_subnet" {
   vpc_id            = aws_vpc.rainpole_vpc.id
   cidr_block        = "10.0.2.0/24"
-  availability_zone = data.aws_availability_zone.available.name[0]
+  availability_zone = data.aws_availability_zones.available.name[0]
 }
 
 resource "aws_subnet" "cache_subnet" {
   vpc_id            = aws_vpc.rainpole_vpc.id
   cidr_block        = "10.0.3.0/24"
-  availability_zone = data.aws_availability_zone.available.name[0]
+  availability_zone = data.aws_availability_zones.available.name[0]
 }
 
 resource "aws_subnet" "data_subnet" {
   vpc_id            = aws_vpc.rainpole_vpc.id
   cidr_block        = "10.0.4.0/24"
-  availability_zone = data.aws_availability_zone.available.name[0]
+  availability_zone = data.aws_availability_zones.available.name[0]
 }
 
 # We will need to Create the following resources for Network communications
