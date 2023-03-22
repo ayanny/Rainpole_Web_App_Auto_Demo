@@ -40,7 +40,7 @@ resource "aws_lb" "app_srvr_lb" {
   internal           = true
 
   subnet_mapping {
-    subnet_id            = aws_subnet.app_subnet
+    subnet_id            = aws_subnet.app_subnet.id
     private_ipv4_address = "10.0.2.10"
   }
 }
