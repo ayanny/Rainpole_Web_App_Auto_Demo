@@ -20,6 +20,10 @@ resource "aws_instance" "web_server" {
   count                       = var.web_count
   user_data_base64            = data.cloudinit_config.web_srvr_template.rendered
   user_data_replace_on_change = true
+
+  tags = {
+    Server = "Web_Server"
+  }
 }
 
 resource "aws_instance" "app_server" {
@@ -33,6 +37,10 @@ resource "aws_instance" "app_server" {
   count                       = var.app_count
   user_data_base64            = data.cloudinit_config.app_srvr_template.rendered
   user_data_replace_on_change = true
+
+  tags = {
+    Server = "Application_Server"
+  }
 }
 
 resource "aws_instance" "cache_server" {
@@ -46,6 +54,10 @@ resource "aws_instance" "cache_server" {
   count                       = var.cache_count
   user_data_base64            = data.cloudinit_config.cache_srvr_template.rendered
   user_data_replace_on_change = true
+
+  tags = {
+    Server = "Cache_Server"
+  }
 }
 
 resource "aws_instance" "data_server" {
@@ -59,6 +71,10 @@ resource "aws_instance" "data_server" {
   count                       = var.data_count
   user_data_base64            = data.cloudinit_config.data_srvr_template.rendered
   user_data_replace_on_change = true
+
+  tags = {
+    Server = "DataStore_Server"
+  }
 }
 
 # For ami, we need an AWS ami that supports SSM, SSM will be used to 
