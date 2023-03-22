@@ -24,7 +24,7 @@ resource "aws_lb" "ext_lb" {
 }
 
 resource "aws_lb" "web_srvr_lb" {
-  name               = "web_internal_lb"
+  name               = "WebInternalLb"
   load_balancer_type = "network"
   internal           = true
 
@@ -35,7 +35,7 @@ resource "aws_lb" "web_srvr_lb" {
 }
 
 resource "aws_lb" "app_srvr_lb" {
-  name               = "app_internal_lb"
+  name               = "AppInternalLb"
   load_balancer_type = "network"
   internal           = true
 
@@ -46,7 +46,7 @@ resource "aws_lb" "app_srvr_lb" {
 }
 
 resource "aws_lb" "cache_srvr_lb" {
-  name               = "cache_internal_lb"
+  name               = "CacheInternalLb"
   load_balancer_type = "network"
   internal           = true
 
@@ -57,7 +57,7 @@ resource "aws_lb" "cache_srvr_lb" {
 }
 
 resource "aws_lb" "data_srvr_lb" {
-  name               = "data_internal_lb"
+  name               = "DataInternalLb"
   load_balancer_type = "network"
   internal           = true
 

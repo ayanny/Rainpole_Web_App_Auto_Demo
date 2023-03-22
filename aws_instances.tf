@@ -15,7 +15,7 @@ resource "aws_instance" "web_server" {
   iam_instance_profile        = aws_iam_instance_profile.ssmprofile.id
   key_name                    = aws_key_pair.ec2_keypair.key_name
   subnet_id                   = aws_subnet.web_subnet.id
-  availability_zone           = data.aws_availability_zone.available.name[0]
+  availability_zone           = data.aws_availability_zones.available.names[0]
   vpc_security_group_ids      = [aws_security_group.web_srvr_traffic_ctrl_sg.id]
   count                       = var.web_count
   user_data_base64            = data.cloudinit_config.web_srvr_template.rendered
@@ -28,7 +28,7 @@ resource "aws_instance" "app_server" {
   iam_instance_profile        = aws_iam_instance_profile.ssmprofile.id
   key_name                    = aws_key_pair.ec2_keypair.key_name
   subnet_id                   = aws_subnet.app_subnet.id
-  availability_zone           = data.aws_availability_zone.available.name[0]
+  availability_zone           = data.aws_availability_zones.available.names[0]
   vpc_security_group_ids      = [aws_security_group.app_srvr_traffic_ctrl_sg.id]
   count                       = var.app_count
   user_data_base64            = data.cloudinit_config.app_srvr_template.rendered
@@ -41,7 +41,7 @@ resource "aws_instance" "cache_server" {
   iam_instance_profile        = aws_iam_instance_profile.ssmprofile.id
   key_name                    = aws_key_pair.ec2_keypair.key_name
   subnet_id                   = aws_subnet.cache_subnet.id
-  availability_zone           = data.aws_availability_zone.available.name[0]
+  availability_zone           = data.aws_availability_zones.available.names[0]
   vpc_security_group_ids      = [aws_security_group.cache_srvr_traffic_ctrl_sg.id]
   count                       = var.cache_count
   user_data_base64            = data.cloudinit_config.cache_srvr_template.rendered
@@ -54,7 +54,7 @@ resource "aws_instance" "data_server" {
   iam_instance_profile        = aws_iam_instance_profile.ssmprofile.id
   key_name                    = aws_key_pair.ec2_keypair.key_name
   subnet_id                   = aws_subnet.app_subnet.id
-  availability_zone           = data.aws_availability_zone.available.name[0]
+  availability_zone           = data.aws_availability_zones.available.names[0]
   vpc_security_group_ids      = [aws_security_group.data_app_traffic_ctrl_sg.id]
   count                       = var.data_count
   user_data_base64            = data.cloudinit_config.data_srvr_template.rendered
