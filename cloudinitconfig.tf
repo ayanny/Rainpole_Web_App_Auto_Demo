@@ -3,49 +3,49 @@
 # Cloudinitconfig will use Data blocks to apply this configuration to EC2 instances upon creation.
 
 data "cloudinit_config" "web_srvr_template" {
-  gzip = true
+  gzip          = true
   base64_encode = true
 
   part {
     content_type = "text/cloud-config"
     content = templatefile("${path.cwd}/cloudinitweb.yaml", {
-        service_name = var.service
+      service_name = var.service
     })
   }
 }
 
 data "cloudinit_config" "app_srvr_template" {
-  gzip = true
+  gzip          = true
   base64_encode = true
 
   part {
     content_type = "text/cloud-config"
     content = templatefile("${path.cwd}/cloudinitapp.yaml", {
-        service_name = var.service
+      service_name = var.service
     })
   }
 }
 
 data "cloudinit_config" "cache_srvr_template" {
-  gzip = true
+  gzip          = true
   base64_encode = true
 
   part {
     content_type = "text/cloud-config"
     content = templatefile("${path.cwd}/cloudinitcache.yaml", {
-        service_name = var.service
+      service_name = var.service
     })
   }
 }
 
 data "cloudinit_config" "data_srvr_template" {
-  gzip = true
+  gzip          = true
   base64_encode = true
 
   part {
     content_type = "text/cloud-config"
     content = templatefile("${path.cwd}/cloudinitdata.yaml", {
-        service_name = var.service
+      service_name = var.service
     })
   }
 }
