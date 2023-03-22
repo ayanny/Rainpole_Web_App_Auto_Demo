@@ -13,7 +13,7 @@
 
 # Let's first create External LB with public IP@
 resource "aws_lb" "ext_lb" {
-  name                             = "External Load Balancer"
+  name                             = "ExternalLB"
   load_balancer_type               = "network"
   enable_cross_zone_load_balancing = true
 
