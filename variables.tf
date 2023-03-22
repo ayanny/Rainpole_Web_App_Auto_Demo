@@ -19,19 +19,19 @@ variable "web_server" {
 }
 
 # Variable for Application Server Type, this is important for Sentinel policy control
-variable "app_Server" {
+variable "app_server" {
   description = "Application Server Variable"
   type        = string
 }
 
 # Variable for Caching Server Type, this is important for Sentinel policy control
-variable "cache_Server" {
+variable "cache_server" {
   description = "Cacheing Server Variable"
   type        = string
 }
 
 # Variable for Data Server Type, this is important for Sentinel policy control
-variable "data_Server" {
+variable "data_server" {
   description = "Data Server Variable"
   type        = string
 }
