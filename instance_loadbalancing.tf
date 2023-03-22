@@ -13,12 +13,12 @@
 
 # Let's first create External LB with public IP@
 resource "aws_lb" "ext_lb" {
-  name = "External Load Balancer"
-  load_balancer_type = "network"
+  name                             = "External Load Balancer"
+  load_balancer_type               = "network"
   enable_cross_zone_load_balancing = true
 
   subnet_mapping {
-    subnet_id = aws_subnet.external_Access.id
-    allocation_id = 
+    subnet_id     = aws_subnet.external_Access.id
+    allocation_id = aws_eip.external_eip.id
   }
 }

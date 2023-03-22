@@ -72,7 +72,7 @@ resource "aws_internet_gateway" "internet_gw" {
 # Create NAT GW
 resource "aws_nat_gateway" "nat_gw" {
   allocation_id = aws_eip.nat_gw_eip.id
-  subnet_id = aws_subnet.external_Access.id
+  subnet_id     = aws_subnet.external_Access.id
   depends_on = [
     aws_internet_gateway.internet_gw
   ]
@@ -99,7 +99,7 @@ resource "aws_route_table" "nat_gw_subnets_rt" {
   vpc_id = aws_vpc.rainpole_vpc.id
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.nat_gw.id
   }
 }
@@ -107,28 +107,28 @@ resource "aws_route_table" "nat_gw_subnets_rt" {
 # After Creating RTs, we need to associate RTs with Servers and Resources
 
 resource "aws_route_table_association" "nat_gw__RTassociation__web_server" {
-  subnet_id = aws_subnet.web_subnet.id
+  subnet_id      = aws_subnet.web_subnet.id
   route_table_id = aws_route_table.nat_gw_subnets_rt.id
 }
 
 resource "aws_route_table_association" "nat_gw__RTasspocation_app_server" {
-  subnet_id = aws_subnet.app_subnet.id
+  subnet_id      = aws_subnet.app_subnet.id
   route_table_id = aws_route_table.nat_gw_subnets_rt.id
 }
 
 resource "aws_route_table_association" "nat_gw__RTasspocation_cache_server" {
-  subnet_id = aws_subnet.cache_subnet.id
+  subnet_id      = aws_subnet.cache_subnet.id
   route_table_id = aws_route_table.nat_gw_subnets_rt.id
 }
 
 resource "aws_route_table_association" "nat_gw__RTasspocation_data_server" {
-  subnet_id = aws_subnet.data_subnet.id
+  subnet_id      = aws_subnet.data_subnet.id
   route_table_id = aws_route_table.nat_gw_subnets_rt.id
 }
 
 # Finally create RT associations for Extenral subnets
 
 resource "aws_route_table_association" "external_traffic_route_association" {
-  subnet_id = aws_subnet.external_Access.id
+  subnet_id      = aws_subnet.external_Access.id
   route_table_id = aws_route_table.external_subnets_rt.id
 }
