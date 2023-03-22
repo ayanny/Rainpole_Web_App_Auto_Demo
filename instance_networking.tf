@@ -53,11 +53,19 @@ resource "aws_subnet" "data_subnet" {
 # First Create External Elastic IP
 resource "aws_eip" "external_eip" {
   vpc = true
+
+  tags = {
+    "Name" = "External-EIP"
+  }
 }
 
 # Second, create EIP for NAT GW
 resource "aws_eip" "nat_gw_eip" {
   vpc = true
+
+  tags = {
+    "Name" = "NAT-EIP"
+  }
 }
 
 # Create Internet GW
