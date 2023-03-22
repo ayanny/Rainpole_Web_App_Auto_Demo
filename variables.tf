@@ -70,3 +70,30 @@ variable "vpccidr" {
   type        = string
   default     = "10.0.0.0/16"
 }
+
+# Create Port number variables, althougth port numbers are already set, 
+# it is good practice to define them as variables
+
+variable "webport" {
+  description = "Web Server Communication Port"
+  type = string
+  default = "19090"
+}
+
+variable "appport" {
+  description = "Web Server Communication Port"
+  type = string
+  default = "19091"
+}
+
+variable "cacheport" {
+  description = "Web Server Communication Port"
+  type = string
+  default = "19092"
+}
+
+variable "dataport" {
+  description = "Web Server Communication Port"
+  type = string
+  default = "19093"
+}

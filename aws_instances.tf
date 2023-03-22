@@ -14,8 +14,8 @@ resource "aws_instance" "web_server" {
   instance_type = var.web_server
   iam_instance_profile = aws_iam_instance_profile.ssmprofile.id
   key_name = aws_key_pair.ec2_keypair.key_name
-  subnet_id = 
-  availability_zone = 
+  subnet_id = aws_subnet.web_subnet.id
+  availability_zone = data.aws_availability_zone.available.name[0]
   vpc_security_group_ids = 
   count = var.web_count
   user_data_base64 = 
@@ -27,8 +27,8 @@ resource "aws_instance" "app_server" {
   instance_type = var.app_Server
   iam_instance_profile = aws_iam_instance_profile.ssmprofile.id
   key_name = aws_key_pair.ec2_keypair.key_name
-  subnet_id = 
-  availability_zone = 
+  subnet_id = aws_subnet.app_subnet.id
+  availability_zone = data.aws_availability_zone.available.name[0]
   vpc_security_group_ids = 
   count = var.app_count
   user_data_base64 = 
@@ -40,8 +40,8 @@ resource "aws_instance" "cache_server" {
   instance_type = var.cache_Server
   iam_instance_profile = aws_iam_instance_profile.ssmprofile.id
   key_name = aws_key_pair.ec2_keypair.key_name
-  subnet_id = 
-  availability_zone = 
+  subnet_id = aws_subnet.cache_subnet.id
+  availability_zone = data.aws_availability_zone.available.name[0]
   vpc_security_group_ids = 
   count = var.cache_count
   user_data_base64 = 
@@ -53,8 +53,8 @@ resource "aws_instance" "data_server" {
   instance_type = var.data_Server
   iam_instance_profile = aws_iam_instance_profile.ssmprofile.id
   key_name = aws_key_pair.ec2_keypair.key_name
-  subnet_id = 
-  availability_zone = 
+  subnet_id = aws_subnet.app_subnet.id
+  availability_zone = data.aws_availability_zone.available.name[0]
   vpc_security_group_ids = 
   count = var.data_count
   user_data_base64 = 
