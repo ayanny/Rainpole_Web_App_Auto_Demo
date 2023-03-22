@@ -72,9 +72,9 @@ resource "aws_instance" "data_server" {
   user_data_base64            = data.cloudinit_config.data_srvr_template.rendered
   user_data_replace_on_change = true
 
-  tags = {
-    "Name" = "DataStore_Server"
-  }
+#   tags = {
+#     "Name" = "DataStore_Server"
+#   }
 }
 
 # For ami, we need an AWS ami that supports SSM, SSM will be used to 
