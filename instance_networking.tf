@@ -2,7 +2,7 @@
 # VPC Creation
 # We will need first to check available subnets, retreive them then create a new subnet
 
-data "aws_availability_zone" "available" {
+data "aws_availability_zones" "available" {
   state = "available"
 }
 
