@@ -19,5 +19,5 @@ module "aws-functions" {
 
 policy "check-ec2-application-tags" {
     source = "./check-ec2-application-tags.sentinel"
-    enforcment_level = "soft-mandatory"
+    enforcement_level = "soft-mandatory"
 }    
