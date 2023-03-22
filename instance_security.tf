@@ -27,7 +27,7 @@ resource "aws_security_group" "web_srvr_traffic_ctrl_sg" {
   }
 }
 
-resource "aws_security_group" "app_srvr_traffic_ctrl_sg" {
+resource "aws_security_group" "application_srvr_traffic_ctrl_sg" {
   name        = "app_traffic_ctrl"
   description = "Control Ingress/Egress Application Traffic"
   vpc_id      = aws_vpc.rainpole_vpc.id
