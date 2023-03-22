@@ -77,25 +77,25 @@ variable "vpccidr" {
 variable "webport" {
   description = "Web Server Communication Port"
   type        = string
-  default     = "19090"
+  default     = "9090"
 }
 
 variable "appport" {
   description = "Web Server Communication Port"
   type        = string
-  default     = "19191"
+  default     = "9191"
 }
 
 variable "cacheport" {
   description = "Web Server Communication Port"
   type        = string
-  default     = "19292"
+  default     = "9292"
 }
 
 variable "dataport" {
   description = "Web Server Communication Port"
   type        = string
-  default     = "19393"
+  default     = "9393"
 }
 
 # We will also need to Create Variables for Each Service, we will call each service by its function
