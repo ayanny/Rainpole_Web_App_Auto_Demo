@@ -47,21 +47,21 @@ variable "web_count" {
 variable "app_count" {
   description = "Application App Count"
   type        = number
-  count       = 1
+  default     = 1
 }
 
 # Variable for the number of Application layer deployed, these applications will be managed by LBs
 variable "cache_count" {
   description = "Cache Application Count"
   type        = number
-  count       = 1
+  default     = 1
 }
 
 # Variable for the number of Data applications deployed, these applications will be managed by LBs
 variable "data_count" {
   description = "Data Application Count"
   type        = number
-  count       = 1
+  default     = 1
 }
 
 # Create Variable for VPC CIDR Block
@@ -76,32 +76,32 @@ variable "vpccidr" {
 
 variable "webport" {
   description = "Web Server Communication Port"
-  type = string
-  default = "19090"
+  type        = string
+  default     = "19090"
 }
 
 variable "appport" {
   description = "Web Server Communication Port"
-  type = string
-  default = "19191"
+  type        = string
+  default     = "19191"
 }
 
 variable "cacheport" {
   description = "Web Server Communication Port"
-  type = string
-  default = "19292"
+  type        = string
+  default     = "19292"
 }
 
 variable "dataport" {
   description = "Web Server Communication Port"
-  type = string
-  default = "19393"
+  type        = string
+  default     = "19393"
 }
 
 # We will also need to Create Variables for Each Service, we will call each service by its function
 
 variable "service" {
   description = "Name of the Service Created"
-  type = string
-  default = "Ops-worksteam"
+  type        = string
+  default     = "Ops-worksteam"
 }
