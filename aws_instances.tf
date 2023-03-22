@@ -24,7 +24,7 @@ resource "aws_instance" "web_server" {
 
 resource "aws_instance" "app_server" {
   ami                         = data.aws_ami.ubuntu.id
-  instance_type               = var.app_Server
+  instance_type               = var.app_server
   iam_instance_profile        = aws_iam_instance_profile.ssmprofile.id
   key_name                    = aws_key_pair.ec2_keypair.key_name
   subnet_id                   = aws_subnet.app_subnet.id
@@ -37,7 +37,7 @@ resource "aws_instance" "app_server" {
 
 resource "aws_instance" "cache_server" {
   ami                         = data.aws_ami.ubuntu.id
-  instance_type               = var.cache_Server
+  instance_type               = var.cache_server
   iam_instance_profile        = aws_iam_instance_profile.ssmprofile.id
   key_name                    = aws_key_pair.ec2_keypair.key_name
   subnet_id                   = aws_subnet.cache_subnet.id
@@ -50,7 +50,7 @@ resource "aws_instance" "cache_server" {
 
 resource "aws_instance" "data_server" {
   ami                         = data.aws_ami.ubuntu.id
-  instance_type               = var.data_Server
+  instance_type               = var.data_server
   iam_instance_profile        = aws_iam_instance_profile.ssmprofile.id
   key_name                    = aws_key_pair.ec2_keypair.key_name
   subnet_id                   = aws_subnet.app_subnet.id
