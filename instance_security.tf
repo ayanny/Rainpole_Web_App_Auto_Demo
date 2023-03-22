@@ -69,8 +69,8 @@ resource "aws_security_group" "cache_srvr_traffic_ctrl_sg" {
   }
 }
 
-resource "aws_security_group" "data_app_traffic_ctrl_sg" {
-  name        = "app_traffic_ctrl"
+resource "aws_security_group" "data_srvr_traffic_ctrl_sg" {
+  name        = "data_traffic_ctrl"
   description = "Control Ingress/Egress For DataStore Traffic"
   vpc_id      = aws_vpc.rainpole_vpc.id
 
