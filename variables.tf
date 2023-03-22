@@ -83,17 +83,17 @@ variable "webport" {
 variable "appport" {
   description = "Web Server Communication Port"
   type = string
-  default = "19091"
+  default = "19191"
 }
 
 variable "cacheport" {
   description = "Web Server Communication Port"
   type = string
-  default = "19092"
+  default = "19292"
 }
 
 variable "dataport" {
   description = "Web Server Communication Port"
   type = string
-  default = "19093"
+  default = "19393"
 }

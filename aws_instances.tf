@@ -16,7 +16,7 @@ resource "aws_instance" "web_server" {
   key_name = aws_key_pair.ec2_keypair.key_name
   subnet_id = aws_subnet.web_subnet.id
   availability_zone = data.aws_availability_zone.available.name[0]
-  vpc_security_group_ids = 
+  vpc_security_group_ids = [aws_security_group.web_srvr_traffic_ctrl_sg.id]
   count = var.web_count
   user_data_base64 = 
   user_data_replace_on_change = true
@@ -29,7 +29,7 @@ resource "aws_instance" "app_server" {
   key_name = aws_key_pair.ec2_keypair.key_name
   subnet_id = aws_subnet.app_subnet.id
   availability_zone = data.aws_availability_zone.available.name[0]
-  vpc_security_group_ids = 
+  vpc_security_group_ids = [aws_security_group.app_srvr_traffic_ctrl_sg.id]
   count = var.app_count
   user_data_base64 = 
   user_data_replace_on_change = true
@@ -42,7 +42,7 @@ resource "aws_instance" "cache_server" {
   key_name = aws_key_pair.ec2_keypair.key_name
   subnet_id = aws_subnet.cache_subnet.id
   availability_zone = data.aws_availability_zone.available.name[0]
-  vpc_security_group_ids = 
+  vpc_security_group_ids = [aws_security_group.cache_srvr_traffic_ctrl_sg.id]
   count = var.cache_count
   user_data_base64 = 
   user_data_replace_on_change = true
@@ -55,7 +55,7 @@ resource "aws_instance" "data_server" {
   key_name = aws_key_pair.ec2_keypair.key_name
   subnet_id = aws_subnet.app_subnet.id
   availability_zone = data.aws_availability_zone.available.name[0]
-  vpc_security_group_ids = 
+  vpc_security_group_ids = [aws_security_group.data_app_traffic_ctrl_sg.id]
   count = var.data_count
   user_data_base64 = 
   user_data_replace_on_change = true
