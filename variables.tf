@@ -103,5 +103,5 @@ variable "dataport" {
 variable "service" {
   description = "Name of the Service Created"
   type        = string
-  default     = "Ops-worksteam"
+  default     = "fake-service"
 }
