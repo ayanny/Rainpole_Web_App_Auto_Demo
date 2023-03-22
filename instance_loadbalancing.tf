@@ -23,17 +23,6 @@ resource "aws_lb" "ext_lb" {
   }
 }
 
-resource "aws_lb" "web_srvr_lb" {
-  name               = "WebInternalLb"
-  load_balancer_type = "network"
-  internal           = true
-
-  subnet_mapping {
-    subnet_id            = aws_subnet.web_subnet.id
-    private_ipv4_address = "10.0.1.10"
-  }
-}
-
 resource "aws_lb" "app_srvr_lb" {
   name               = "AppInternalLb"
   load_balancer_type = "network"

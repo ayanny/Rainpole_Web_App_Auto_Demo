@@ -28,6 +28,6 @@ runcmd:
   - systemctl enable docker
   - systemctl start docker
   - docker pull nicholasjackson/fake-service:v0.24.2
-  - docker run -d -e NAME='Data_Server' -e SERVER_TYPE='http' -e MESSAGE='Rainpole Delivery Corp. Data' -p 19494:19090 nicholasjackson/fake-service:v0.24.2
+  - docker run -d -e NAME='Data_Server' -e SERVER_TYPE='http' -e MESSAGE='Rainpole Delivery Corp. Data' -p 19393:19090 nicholasjackson/fake-service:v0.24.2
 
 final_message: "The system is finally up, after $UPTIME seconds!"
