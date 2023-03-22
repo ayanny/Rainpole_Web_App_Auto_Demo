@@ -97,3 +97,11 @@ variable "dataport" {
   type = string
   default = "19393"
 }
+
+# We will also need to Create Variables for Each Service, we will call each service by its function
+
+variable "service" {
+  description = "Name of the Service Created"
+  type = string
+  default = "Ops-worksteam"
+}
