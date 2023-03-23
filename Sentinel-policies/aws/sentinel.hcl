@@ -21,3 +21,8 @@ policy "check-ec2-application-tags" {
     source = "./check-ec2-application-tags.sentinel"
     enforcement_level = "soft-mandatory"
 }    
+
+policy "check-ec2-environment-tag" {
+    source = "./check-ec2-environment-tag.sentinel"
+    enforcement_level = "soft-mandatory"
+}    
