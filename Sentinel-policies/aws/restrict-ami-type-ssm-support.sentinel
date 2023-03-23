@@ -30,5 +30,5 @@ violations = EC2InstanceViolations + AMIViolations
 # Main Rule
 
 main = rule {
-    violations = 0
+    violations is 0
 }
