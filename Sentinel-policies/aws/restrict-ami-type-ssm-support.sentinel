@@ -1,0 +1,34 @@
+
+
+import "tfstate-functions" as state
+
+
+import "tfconfig-functions" as config
+
+
+allEC2Instances = config.find_resources_by_type("aws_instance")
+
+
+
+violatingEC2Instances = config.filter_attribute_does_not_match_regex(allEC2Instances,
+    "config.ami", "^data\\.aws_ami\\.(.*)$", true)
+
+EC2InstanceViolations = length(violatingEC2Instances["messages"])
+
+
+allAMIs = state.find_datasources("aws_ami")
+
+
+violatingAMIs = state.filter_attribute_is_not_value(allAMIs, "most_recent", true, true)
+
+
+AMIViolations = length(violatingAMIs["messages"])
+
+violations = EC2InstanceViolations + AMIViolations
+
+
+# Main Rule
+
+main = rule {
+    violations = 0
+}

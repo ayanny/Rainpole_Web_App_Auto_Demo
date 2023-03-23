@@ -26,3 +26,23 @@ policy "check-ec2-environment-tag" {
     source = "./check-ec2-environment-tag.sentinel"
     enforcement_level = "soft-mandatory"
 }    
+
+policy "restrict-ami-type-ssm-support" {
+    source = "./restrict-ami-type-ssm-support.sentinel"
+    enforcement_level = "soft-mandatory"
+}    
+
+policy "restrict-ami-type-ssm-support" {
+    source = "./restrict-ami-type-ssm-support.sentinel"
+    enforcement_level = "soft-mandatory"
+} 
+
+policy "restrict-ec2-type-application-instance" {
+    source = "./restrict-ec2-type-application-instance.sentinel"
+    enforcement_level = "soft-mandatory"
+}
+
+policy "restrict-az" {
+    source = "./restrict-az.sentinel"
+    enforcement_level = "soft-mandatory"
+}
