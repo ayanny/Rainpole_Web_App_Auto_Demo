@@ -8,7 +8,8 @@ allowed_applications    = ["Web_Server", "Application_Server", "Cache_Server", "
 allEC2Instances = plan.find_resources("aws_instance")
 
 
-EC2InstancesWithoutServerTag = plan.filter_attribute_not_contains_list(allEC2Instances, "tags", mandatory_tags, true)
+EC2InstancesWithoutServerTag = plan.filter_attribute_not_contains_list(allEC2Instances,
+    "tags", mandatory_tags, true)
 
 
 EC2InstancesWithInvalildSeverTag = plan.filter_attribute_map_key_contains_items_not_in_list(allEC2Instances,
