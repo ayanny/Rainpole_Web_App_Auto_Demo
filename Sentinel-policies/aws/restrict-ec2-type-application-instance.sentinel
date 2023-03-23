@@ -14,7 +14,7 @@ allEC2Instances = plan.find_resources("aws_instance")
 EC2InstancesWithApplicationNameTag = plan.filter_attribute_map_key_contains_items_in_list(allEC2Instances,
     "tags", "Name", allowed_applications, true)
 
-EC2InstancesWithInvalidType = plan.filter_attribute_not_contains_list(EC2InstancesWithApplicationNameTag["resources"], 
+EC2InstancesWithInvalidType = plan.filter_attribute_not_in_list(EC2InstancesWithApplicationNameTag["resources"], 
     "instance_type", allowed_types, true)
 
 
