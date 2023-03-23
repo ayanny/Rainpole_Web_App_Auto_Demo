@@ -6,7 +6,7 @@ import "tfplan-functions" as plan
 allowed_types = ["t2.micro", "t2.medium"]
 
 
-allowed_applications = ["app_server"]
+allowed_applications = ["Application_Server"]
 
 
 allEC2Instances = plan.find_resources("aws_instance")
