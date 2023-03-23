@@ -6,7 +6,7 @@ import "tfplan-functions" as plan
 
 
 allowed_zones = [
-    "us-east-1a", "us-east-1b", "us-west-1c", "us-west-1a"
+    "us-east-1a", "us-east-1b", "us-west-1c", "us-west-1a",
 ]
 
 allEC2Instances = plan.find_resources("aws_instance")
