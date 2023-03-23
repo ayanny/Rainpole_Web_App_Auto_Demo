@@ -12,13 +12,13 @@ allowed_environments = ["dev", "prod"]
 allEC2Instances = plan.find_resources("aws_instance")
 
 
-EC2InstancesWithoutEnvironmentTag = plan.filter_attribute_not_contains_list(allEC2Instances,
-    "tags", mandatory_tags, true)
+EC2InstancesWithoutEnvironmentTagAll = plan.filter_attribute_not_contains_list(allEC2Instances,
+    "tags_all", mandatory_tags, true)
 
-Ec2InstancesWithInvalidEnvironmentTag = plan.filter_attribute_map_key_contains_items_not_in_list(allEC2Instances,
-    "tags", "Environment", allowed_environments, true)
+Ec2InstancesWithInvalidEnvironmentTagAll = plan.filter_attribute_map_key_contains_items_not_in_list(allEC2Instances,
+    "tags_all", "Environment", allowed_environments, true)
 
-tag_violations = length(EC2InstancesWithoutEnvironmentTag["messages"]) + length(Ec2InstancesWithInvalidEnvironmentTag["messages"])
+tag_violations = length(EC2InstancesWithoutEnvironmentTagAll["messages"]) + length(Ec2InstancesWithInvalidEnvironmentTagAll["messages"])
 
 
 # Main Rule
