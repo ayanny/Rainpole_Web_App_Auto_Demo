@@ -1,0 +1,27 @@
+
+
+import "tfplan-functions" as plan
+
+
+mandatory_tags = ["Environment"]
+
+
+allowed_environments = ["dev", "prod"]
+
+
+allEC2Instances = plan.find_resources("aws_instance")
+
+
+EC2InstancesWithoutEnvironmentTag = plan.filter_attribute_not_contains_list(allEC2Instances,
+    "tags", mandatory_tags, true)
+
+Ec2InstancesWithInvalidEnvironmentTag = plan.filter_attribute_map_key_contains_items_not_in_list(allEC2Instances,
+    "tags", "Environment", allowed_environments, true)
+
+tag_violations = length(EC2InstancesWithoutEnvironmentTag["messages"]) + length(Ec2InstancesWithInvalidEnvironmentTag["messages"])
+
+
+# Main Rule
+main = rule {
+    tag_violations is 0
+}
