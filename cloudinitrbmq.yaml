@@ -28,6 +28,6 @@ runcmd:
   - systemctl enable docker
   - systemctl start docker
   - docker pull nicholasjackson/fake-service:v0.24.2
-  - docker run -d -e NAME='RabbitMQ_Server' -e SERVER_TYPE='http' -e UPSTREAM_URIS='http://10.0.3.10:9292' -e MESSAGE='Rainpole Delivery Corp. Cache App' -p 9292:9090 nicholasjackson/fake-service:v0.24.2
+  - docker run -d -e NAME='RabbitMQ_Server' -e SERVER_TYPE='http' -e UPSTREAM_URIS='http://10.0.3.10:9292' -e MESSAGE='Rainpole Delivery Corp. Rabbit MQ App' -p 9595:9090 nicholasjackson/fake-service:v0.24.2
 
 final_message: "The system is finally up, after $UPTIME seconds!"
