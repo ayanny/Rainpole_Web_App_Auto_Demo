@@ -36,6 +36,12 @@ variable "data_server" {
   type        = string
 }
 
+# Variable for Data Server Type, this is important for Sentinel policy control
+variable "bill_server" {
+  description = "Billing Server Variable"
+  type        = string
+}
+
 # Variable for the number of Web applications deployed, these applications will be managed by LBs
 variable "web_count" {
   description = "Web Application Count"
@@ -60,6 +66,13 @@ variable "cache_count" {
 # Variable for the number of Data applications deployed, these applications will be managed by LBs
 variable "data_count" {
   description = "Data Application Count"
+  type        = number
+  default     = 1
+}
+
+# Variable for the number of Data applications deployed, these applications will be managed by LBs
+variable "bill_count" {
+  description = "Billing Application Count"
   type        = number
   default     = 1
 }
@@ -96,6 +109,12 @@ variable "dataport" {
   description = "Web Server Communication Port"
   type        = string
   default     = "9393"
+}
+
+variable "billport" {
+  description = "Billing Server Communication Port"
+  type        = string
+  default     = "9494"
 }
 
 # We will also need to Create Variables for Each Service, we will call each service by its function

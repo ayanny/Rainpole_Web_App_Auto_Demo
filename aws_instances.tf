@@ -60,6 +60,23 @@ resource "aws_instance" "cache_server" {
   }
 }
 
+resource "aws_instance" "bill_server" {
+  ami                         = data.aws_ami.ubuntu.id
+  instance_type               = var.bill_server
+  iam_instance_profile        = aws_iam_instance_profile.ssmprofile.id
+  key_name                    = aws_key_pair.ec2_keypair.key_name
+  subnet_id                   = aws_subnet.bill_subnet.id
+  availability_zone           = data.aws_availability_zones.available.names[0]
+  vpc_security_group_ids      = [aws_security_group.bill_srvr_traffic_ctrl_sg.id]
+  count                       = var.bill_count
+  user_data_base64            = data.cloudinit_config.bill_srvr_template.rendered
+  user_data_replace_on_change = true
+
+  tags = {
+    "Name" = "Billing_Server"
+  }
+}
+
 resource "aws_instance" "data_server" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.data_server

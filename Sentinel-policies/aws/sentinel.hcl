@@ -52,6 +52,11 @@ policy "restrict-ec2-type-web-instance" {
     enforcement_level = "soft-mandatory"
 }
 
+policy "restrict-ec2-type-billing-instance" {
+    source = "./restrict-ec2-type-billing-instance.sentinel"
+    enforcement_level = "soft-mandatory"
+}
+
 policy "restrict-az" {
     source = "./restrict-az.sentinel"
     enforcement_level = "soft-mandatory"

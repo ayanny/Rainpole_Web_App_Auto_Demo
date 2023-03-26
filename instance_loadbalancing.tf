@@ -56,6 +56,17 @@ resource "aws_lb" "data_srvr_lb" {
   }
 }
 
+resource "aws_lb" "bill_srvr_lb" {
+  name               = "BillingInternalLb"
+  load_balancer_type = "network"
+  internal           = true
+
+  subnet_mapping {
+    subnet_id            = aws_subnet.bill_subnet.id
+    private_ipv4_address = "10.0.5.10"
+  }
+}
+
 # Now Create the Target groups for LBs, 
 # the TGs are the subset of EC2 instances targeted by the LB
 
@@ -83,6 +94,13 @@ resource "aws_lb_target_group" "cache_srvr_tg" {
 resource "aws_lb_target_group" "data_srvr_tg" {
   name     = "DataSrvrTg"
   port     = tonumber(var.dataport)
+  protocol = "TCP"
+  vpc_id   = aws_vpc.rainpole_vpc.id
+}
+
+resource "aws_lb_target_group" "bill_srvr_tg" {
+  name     = "BillingSrvrTg"
+  port     = tonumber(var.billport)
   protocol = "TCP"
   vpc_id   = aws_vpc.rainpole_vpc.id
 }
@@ -133,6 +151,17 @@ resource "aws_lb_listener" "data_srvr_lb_listener" {
   }
 }
 
+resource "aws_lb_listener" "bill_srvr_lb_listener" {
+  load_balancer_arn = aws_lb.bill_srvr_lb.arn
+  port              = var.billport
+  protocol          = "TCP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.bill_srvr_tg.arn
+  }
+}
+
 # Finally we have to attach the instances with each target group
 
 resource "aws_lb_target_group_attachment" "web_srvr_lb_tg_attachment" {
@@ -161,4 +190,11 @@ resource "aws_lb_target_group_attachment" "data_srvr_lb_tg_attachment" {
   target_group_arn = aws_lb_target_group.data_srvr_tg.arn
   target_id        = aws_instance.data_server[count.index].id
   port             = tonumber(var.dataport)
+}
+
+resource "aws_lb_target_group_attachment" "bill_srvr_lb_tg_attachment" {
+  count            = var.bill_count
+  target_group_arn = aws_lb_target_group.bill_srvr_tg.arn
+  target_id        = aws_instance.bill_server[count.index].id
+  port             = tonumber(var.billport)
 }

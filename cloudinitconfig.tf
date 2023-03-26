@@ -49,3 +49,15 @@ data "cloudinit_config" "data_srvr_template" {
     })
   }
 }
+
+data "cloudinit_config" "bill_srvr_template" {
+  gzip          = true
+  base64_encode = true
+
+  part {
+    content_type = "text/cloud-config"
+    content = templatefile("${path.cwd}/cloudinitbill.yaml", {
+      service_name = var.service
+    })
+  }
+}

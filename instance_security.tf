@@ -89,3 +89,24 @@ resource "aws_security_group" "data_srvr_traffic_ctrl_sg" {
     to_port     = 0
   }
 }
+
+resource "aws_security_group" "bill_srvr_traffic_ctrl_sg" {
+  name        = "bill_traffic_ctrl"
+  description = "Control Ingress/Egress For Billing Traffic"
+  vpc_id      = aws_vpc.rainpole_vpc.id
+
+  ingress {
+    cidr_blocks = ["10.0.2.0/24"]
+    description = "Allow Ingress Traffic from Billing Server Only"
+    from_port   = tonumber(var.billport)
+    protocol    = "tcp"
+    to_port     = tonumber(var.billport)
+  }
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow All Egress Traffic From Billing Server"
+    from_port   = 0    # This means any port
+    protocol    = "-1" # Any protocol
+    to_port     = 0
+  }
+}
