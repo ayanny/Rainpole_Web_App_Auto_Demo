@@ -60,6 +60,7 @@ resource "aws_instance" "cache_server" {
   }
 }
 
+# Instace to manage all payments created by customers
 resource "aws_instance" "bill_server" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.bill_server
