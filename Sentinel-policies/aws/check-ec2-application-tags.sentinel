@@ -3,7 +3,7 @@ import "tfplan-functions" as plan
 
 mandatory_tags  = ["Name"]
 
-allowed_applications    = ["Web_Server", "Application_Server", "Cache_Server", "DataStore_Server"]
+allowed_applications    = ["Web_Server", "Application_Server", "Cache_Server", "DataStore_Server", "Billing_Server", "RabbitMQ_Server"]
 
 allEC2Instances = plan.find_resources("aws_instance")
 
