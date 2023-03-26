@@ -1,0 +1,29 @@
+
+
+
+import "tfplan-functions" as plan
+
+
+allowed_types = ["t3.large", "t2.medium"]
+
+
+allowed_applications = ["RabbitMQ_Server"]
+
+
+allEC2Instances = plan.find_resources("aws_instance")
+
+EC2InstancesWithCacheNameTag = plan.filter_attribute_map_key_contains_items_in_list(allEC2Instances,
+    "tags", "Name", allowed_applications, true)
+
+EC2InstancesWithInvalidType = plan.filter_attribute_not_in_list(EC2InstancesWithCacheNameTag["resources"], 
+    "instance_type", allowed_types, true)
+
+
+# Count Violations
+violations = length(EC2InstancesWithInvalidType["messages"])
+
+# Main Rule
+
+main = rule {
+    violations is 0
+}

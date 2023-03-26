@@ -78,6 +78,24 @@ resource "aws_instance" "bill_server" {
   }
 }
 
+# Instace for RabitMQ server to manage msgs between instances
+resource "aws_instance" "rbmq_server" {
+  ami                         = data.aws_ami.ubuntu.id
+  instance_type               = var.rbmq_server
+  iam_instance_profile        = aws_iam_instance_profile.ssmprofile.id
+  key_name                    = aws_key_pair.ec2_keypair.key_name
+  subnet_id                   = aws_subnet.rbmq_subnet.id
+  availability_zone           = data.aws_availability_zones.available.names[0]
+  vpc_security_group_ids      = [aws_security_group.rbmq_srvr_traffic_ctrl_sg.id]
+  count                       = var.rbmq_count
+  user_data_base64            = data.cloudinit_config.rbmq_srvr_template.rendered
+  user_data_replace_on_change = true
+
+  tags = {
+    "Name" = "RabbitMQ_Server"
+  }
+}
+
 resource "aws_instance" "data_server" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.data_server

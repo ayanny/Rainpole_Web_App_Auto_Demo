@@ -51,6 +51,12 @@ resource "aws_subnet" "bill_subnet" {
   availability_zone = data.aws_availability_zones.available.names[0]
 }
 
+resource "aws_subnet" "rbmq_subnet" {
+  vpc_id            = aws_vpc.rainpole_vpc.id
+  cidr_block        = "10.0.6.0/24"
+  availability_zone = data.aws_availability_zones.available.names[0]
+}
+
 # We will need to Create the following resources for Network communications
 # Internet GW for internet access
 # NAT GW for internal instance communication 
@@ -145,6 +151,10 @@ resource "aws_route_table_association" "nat_gw__RTasspocation_bill_server" {
   route_table_id = aws_route_table.nat_gw_subnets_rt.id
 }
 
+resource "aws_route_table_association" "nat_gw__RTasspocation_rbmq_server" {
+  subnet_id      = aws_subnet.rbmq_subnet.id
+  route_table_id = aws_route_table.nat_gw_subnets_rt.id
+}
 # Finally create RT associations for Extenral subnets
 
 resource "aws_route_table_association" "external_traffic_route_association" {

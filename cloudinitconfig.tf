@@ -61,3 +61,15 @@ data "cloudinit_config" "bill_srvr_template" {
     })
   }
 }
+
+data "cloudinit_config" "rbmq_srvr_template" {
+  gzip          = true
+  base64_encode = true
+
+  part {
+    content_type = "text/cloud-config"
+    content = templatefile("${path.cwd}/cloudinitrbmq.yaml", {
+      service_name = var.service
+    })
+  }
+}

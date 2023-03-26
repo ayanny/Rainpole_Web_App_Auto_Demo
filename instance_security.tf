@@ -54,7 +54,7 @@ resource "aws_security_group" "cache_srvr_traffic_ctrl_sg" {
   vpc_id      = aws_vpc.rainpole_vpc.id
 
   ingress {
-    cidr_blocks = ["10.0.2.0/24"]
+    cidr_blocks = ["10.0.6.0/24"]
     description = "Allow Ingress Traffic from Application Server Only"
     from_port   = tonumber(var.cacheport)
     protocol    = "tcp"
@@ -97,14 +97,35 @@ resource "aws_security_group" "bill_srvr_traffic_ctrl_sg" {
 
   ingress {
     cidr_blocks = ["10.0.2.0/24"]
-    description = "Allow Ingress Traffic from Billing Server Only"
+    description = "Allow Ingress Traffic from Application Server Only"
     from_port   = tonumber(var.billport)
     protocol    = "tcp"
     to_port     = tonumber(var.billport)
   }
   egress {
     cidr_blocks = ["0.0.0.0/0"]
-    description = "Allow All Egress Traffic From Billing Server"
+    description = "Allow All Egress Traffic From Application Server"
+    from_port   = 0    # This means any port
+    protocol    = "-1" # Any protocol
+    to_port     = 0
+  }
+}
+
+resource "aws_security_group" "rbmq_srvr_traffic_ctrl_sg" {
+  name        = "rbmq_traffic_ctrl"
+  description = "Control Ingress/Egress For RabbitMQ Traffic"
+  vpc_id      = aws_vpc.rainpole_vpc.id
+
+  ingress {
+    cidr_blocks = ["10.0.2.0/24"]
+    description = "Allow Ingress Traffic from Application Server Only"
+    from_port   = tonumber(var.rbmqport)
+    protocol    = "tcp"
+    to_port     = tonumber(var.rbmqport)
+  }
+  egress {
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "Allow All Egress Traffic From Application Server"
     from_port   = 0    # This means any port
     protocol    = "-1" # Any protocol
     to_port     = 0

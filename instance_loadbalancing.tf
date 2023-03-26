@@ -67,6 +67,18 @@ resource "aws_lb" "bill_srvr_lb" {
   }
 }
 
+
+resource "aws_lb" "rbmq_srvr_lb" {
+  name               = "RabbitMQInternalLb"
+  load_balancer_type = "network"
+  internal           = true
+
+  subnet_mapping {
+    subnet_id            = aws_subnet.rbmq_subnet.id
+    private_ipv4_address = "10.0.6.10"
+  }
+}
+
 # Now Create the Target groups for LBs, 
 # the TGs are the subset of EC2 instances targeted by the LB
 
@@ -104,6 +116,14 @@ resource "aws_lb_target_group" "bill_srvr_tg" {
   protocol = "TCP"
   vpc_id   = aws_vpc.rainpole_vpc.id
 }
+
+resource "aws_lb_target_group" "rbmq_srvr_tg" {
+  name     = "RabbitMQSrvrTg"
+  port     = tonumber(var.rbmqport)
+  protocol = "TCP"
+  vpc_id   = aws_vpc.rainpole_vpc.id
+}
+
 
 # The next requirement is to configure LB Listeners for reach server/application
 
@@ -162,6 +182,17 @@ resource "aws_lb_listener" "bill_srvr_lb_listener" {
   }
 }
 
+resource "aws_lb_listener" "rbmq_srvr_lb_listener" {
+  load_balancer_arn = aws_lb.rbmq_srvr_lb.arn
+  port              = var.rbmqport
+  protocol          = "TCP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.rbmq_srvr_tg.arn
+  }
+}
+
 # Finally we have to attach the instances with each target group
 
 resource "aws_lb_target_group_attachment" "web_srvr_lb_tg_attachment" {
@@ -197,4 +228,11 @@ resource "aws_lb_target_group_attachment" "bill_srvr_lb_tg_attachment" {
   target_group_arn = aws_lb_target_group.bill_srvr_tg.arn
   target_id        = aws_instance.bill_server[count.index].id
   port             = tonumber(var.billport)
+}
+
+resource "aws_lb_target_group_attachment" "rbmq_srvr_lb_tg_attachment" {
+  count            = var.rbmq_count
+  target_group_arn = aws_lb_target_group.rbmq_srvr_tg.arn
+  target_id        = aws_instance.rbmq_server[count.index].id
+  port             = tonumber(var.rbmqport)
 }

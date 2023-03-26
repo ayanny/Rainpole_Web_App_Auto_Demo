@@ -42,6 +42,12 @@ variable "bill_server" {
   type        = string
 }
 
+# Variable for Data Server Type, this is important for Sentinel policy control
+variable "rbmq_server" {
+  description = "RabbitMQ Server Variable"
+  type        = string
+}
+
 # Variable for the number of Web applications deployed, these applications will be managed by LBs
 variable "web_count" {
   description = "Web Application Count"
@@ -73,6 +79,13 @@ variable "data_count" {
 # Variable for the number of Data applications deployed, these applications will be managed by LBs
 variable "bill_count" {
   description = "Billing Application Count"
+  type        = number
+  default     = 1
+}
+
+# Variable for the number of Data applications deployed, these applications will be managed by LBs
+variable "rbmq_count" {
+  description = "RabbitMQ Application Count"
   type        = number
   default     = 1
 }
@@ -115,6 +128,12 @@ variable "billport" {
   description = "Billing Server Communication Port"
   type        = string
   default     = "9494"
+}
+
+variable "rbmqport" {
+  description = "Billing Server Communication Port"
+  type        = string
+  default     = "9595"
 }
 
 # We will also need to Create Variables for Each Service, we will call each service by its function
