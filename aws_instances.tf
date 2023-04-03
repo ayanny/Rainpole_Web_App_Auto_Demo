@@ -2,7 +2,7 @@
 # This configuration contain EC2 instances configurtions resources, please refer to architecture diagram for more 
 # information on applications and communication between them.
 
-
+## Dev Env.
 # There are 4 applications configured:
     # web_server: Public Facing Web Server for external Csutomer access
     # application_server: Receives requests/data from Web Server
