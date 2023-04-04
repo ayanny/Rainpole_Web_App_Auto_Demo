@@ -1,4 +1,3 @@
-
 # VPC Creation
 # We will need first to check available subnets, retreive them then create a new subnet
 
