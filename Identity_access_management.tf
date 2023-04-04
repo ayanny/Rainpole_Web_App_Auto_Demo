@@ -27,7 +27,7 @@ EOF
 
 # Now Create The Profile for SSM
 resource "aws_iam_instance_profile" "ssmprofile" {
-  name = "${aws_iam_role.ssm.name}-profile"
+  name = "${aws_iam_role.ssm.name}-profile-Prod"
   role = aws_iam_role.ssm.name
 }
 
