@@ -62,7 +62,6 @@ policy "restrict-ec2-type-rabbitmq-instance" {
     enforcement_level = "soft-mandatory"
 }
 
-
 policy "restrict-az" {
     source = "./restrict-az.sentinel"
     enforcement_level = "soft-mandatory"
