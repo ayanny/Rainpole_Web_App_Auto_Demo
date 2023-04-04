@@ -3,7 +3,7 @@
 variable "aws_region" {
   description = "AWS Region Variable"
   type        = string
-  default     = "us-west-1"
+  default     = "us-west-2"
 }
 
 # Variable configuration for Environment type, typical types can be Dev, Prod or staging
