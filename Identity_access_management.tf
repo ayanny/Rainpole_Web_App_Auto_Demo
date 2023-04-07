@@ -5,7 +5,7 @@
 # For SSM we will need an IAM Role, Assume Role policy, a profile and SSM Permission policy_arn
 
 resource "aws_iam_role" "ssm" {
-  name = "SSM_ACCESS"
+  name = "SSM_DEV_ACCESS"
   path = "/"
 
   assume_role_policy = <<EOF

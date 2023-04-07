@@ -1,0 +1,59 @@
+## This policy uses the standard import time to restrict infrastructure
+# changes to off-peak hours 1am - 9am UTC
+
+import "time"
+import "tfplan-functions" as plan
+import "tfplan/v2" as tfplan
+
+
+# This line gets the current hour from the system time using the "time.now()"
+# function and stores it in a variable called "current_time".
+
+current_time = time.now.hour
+
+
+environment_tag_value = "production"
+
+
+# This line checks if the current time is between 9 AM and 1 AM the following day, inclusive.
+# It assigns the boolean result to a variable called "restricted_times".
+restricted_times = current_time >= 9 or current_time <= 1
+
+# This line filters the changes in the Terraform plan by keeping only resources that are
+# "managed" and have a change action of "create", "update", or "delete". It assigns the result to a variable called "resources".
+
+resources = filter tfplan.resource_changes as address, rc {
+    rc.mode is "managed" and
+        (rc.change.actions contains "create" or rc.change.actions contains "update" or rc.change.actions contains "delete")
+}
+
+# This line applies a filter to the "resources" variable using a function from the "plan" module.
+# It looks for changes in the "tags" attribute of the resources where the key "Environment" has a value that matches "production".
+# It assigns the result to a variable called "ProductionChangesTags".
+
+ProductionChangesTags = plan.filter_attribute_map_key_contains_items_in_list(resources,
+    "tags", "Environment", environment_tag_value, true)
+
+# This line applies a filter to the "resources" variable using the same function as above,
+# but this time it looks for changes in the "tags_all" attribute. It assigns the result to a variable called "ProductionChangesTagsAll".
+
+
+ProductionChangesTagsAll = plan.filter_attribute_map_key_contains_items_in_list(resources,
+    "tags_all", "Environment", environment_tag_value, true)
+
+# These two lines calculate the number of changes that were detected by the previous filters by getting the
+# length of the "messages" list of the "ProductionChangesTags" and "ProductionChangesTagsAll" dictionaries, respectively.
+# The result is stored in two new variables.
+
+detected_changes_tags = length(ProductionChangesTags["messages"])
+detected_changes_tagsall = length(ProductionChangesTagsAll["messages"])
+
+# This line creates a new "rule" object that checks if there were no detected changes in either
+# "ProductionChangesTags" or "ProductionChangesTagsAll". The result is assigned to a variable called "Production_changes".
+
+Production_changes = rule { detected_changes_tags == 0 and detected_changes_tagsall == 0 }
+
+# This line creates a new "rule" object that applies the "Production_changes" rule if "restricted_times" is true.
+# The result is assigned to a variable called "main".
+
+main = rule when restricted_times { Production_changes}
