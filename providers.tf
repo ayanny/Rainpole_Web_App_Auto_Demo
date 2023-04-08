@@ -35,5 +35,5 @@ provider "vault" {
 }
 
 data "vault_generic_secret" "aws_cred" {
-  path = "aws/my-role"
+  path = "aws/creds/my-role"
 }
