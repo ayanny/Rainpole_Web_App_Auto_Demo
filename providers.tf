@@ -35,5 +35,5 @@ provider "vault" {
 }
 
 data "vault_generic_secret" "aws_cred" {
-  path = "aws/creds/rainpole-role"
+  path = "aws/my-role"
 }
