@@ -16,8 +16,8 @@ terraform {
 }
 
 provider "aws" {
-  access_key = data.vault_generic_secret.vault.access_key
-  secret_key = data.vault_generic_secret.vault.secret_key
+  access_key = data.vault_generic_secret.access_key
+  secret_key = data.vault_generic_secret.secret_key
   region = var.aws_region
   default_tags {
     tags = {
