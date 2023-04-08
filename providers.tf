@@ -16,10 +16,21 @@ terraform {
 }
 
 provider "aws" {
+  access_key = vault_generic_secret.aws.access_key
+  secret_key = vault_generic_secret.aws.secret_key
   region = var.aws_region
   default_tags {
     tags = {
       Environment = var.environment
     }
   }
+}
+
+provider "vault" {
+  address = "https://Rainpole-Vault-Cluster-public-vault-189353e2.b5e88078.z1.hashicorp.cloud:8200"
+  token   = var.vault_token
+}
+
+data "vault_generic_secret" "aws" {
+  path = "aws/creds/rainpole-role"
 }

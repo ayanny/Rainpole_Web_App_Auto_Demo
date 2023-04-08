@@ -143,3 +143,8 @@ variable "service" {
   type        = string
   default     = "fake-service"
 }
+
+variable "vault_token" {
+  description = "Vault Server Token, Token is saved as a senstive key-value in Terraform Cloud"
+  type        = string
+}
