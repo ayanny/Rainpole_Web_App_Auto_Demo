@@ -16,8 +16,8 @@ terraform {
 }
 
 provider "aws" {
-  access_key = data.vault_generic_secret.access_key
-  secret_key = data.vault_generic_secret.secret_key
+  access_key = data.vault_generic_secret.aws_cred.access_key
+  secret_key = data.vault_generic_secret.aws_cred.secret_key
   region = var.aws_region
   default_tags {
     tags = {
@@ -34,7 +34,6 @@ provider "vault" {
 
 }
 
-data "vault_generic_secret" "vault" {
-#  path = "aws/creds/rainpole-role"
-  path = "secret/aws/credentials/rainpole-role"
+data "vault_generic_secret" "aws_cred" {
+  path = "aws/creds/rainpole-role"
 }
