@@ -34,7 +34,7 @@ provider "vault" {
 
 }
 
-data "vault_generic_secret" "aws" {
+data "vault_generic_secret" "vault" {
 #  path = "aws/creds/rainpole-role"
   path = "secret/aws/credentials/rainpole-role"
 }
