@@ -16,7 +16,7 @@ terraform {
 }
 
 provider "aws" {
-  access_key = data.vault_generic_secret.aws.access_key
+  access_key = data.vault_generic_secret.aws.
   secret_key = data.vault_generic_secret.aws.secret_key
   region = var.aws_region
   default_tags {
@@ -36,6 +36,6 @@ provider "vault" {
 }
 
 data "vault_generic_secret" "aws" {
+  backend = "aws"
   path = "aws/creds/my-role"
-
 }
