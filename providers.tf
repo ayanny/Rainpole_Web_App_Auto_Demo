@@ -27,10 +27,10 @@ provider "aws" {
 }
 
 provider "vault" {
-  address   = local.hcp_vault_public_endpoint
-#  address = "https://Rainpole-Vault-Cluster-public-vault-189353e2.b5e88078.z1.hashicorp.cloud:8200"
+#  address   = local.hcp_vault_public_endpoint
+  address = "https://Rainpole-Vault-Cluster-public-vault-189353e2.b5e88078.z1.hashicorp.cloud:8200"
   token   = var.vault_token
-  namespace = local.hcp_vault_namespace
+#  namespace = local.hcp_vault_namespace
 
 }
 
