@@ -18,7 +18,7 @@ terraform {
 provider "aws" {
   access_key = data.vault_aws_access_credentials.creds.access_key
   secret_key = data.vault_aws_access_credentials.creds.secret_key
-  region = var.aws_region
+  region     = var.aws_region
   default_tags {
     tags = {
       Environment = var.environment
@@ -28,9 +28,9 @@ provider "aws" {
 
 
 provider "vault" {
-#  address   = local.hcp_vault_public_endpoint
-#  version = ">= 2.1.0"
-  address = "https://rainpole-vault-cluster-public-vault-189353e2.b5e88078.z1.hashicorp.cloud:8200/ui/vault/secrets?namespace=admin"
+  #  address   = local.hcp_vault_public_endpoint
+  #  version = ">= 2.1.0"
+  address = "https://rainpole-vault-cluster-public-vault-189353e2.b5e88078.z1.hashicorp.cloud:8200" #/ui/vault/secrets?namespace=admin"
   token   = var.vault_token
 }
 
@@ -47,22 +47,22 @@ resource "vault_aws_secret_backend" "aws" {
 }
 
 resource "vault_aws_secret_backend_role" "role" {
-  backend = vault_aws_secret_backend.aws.path
+  backend         = vault_aws_secret_backend.aws.path
   credential_type = "iam_user"
-  name    = "my-role2"
+  name            = "my-role2"
 
-#   policy = <<EOT
-# {
-#   "Version": "2012-10-17",
-#   "Statement": [
-#     {
-#       "Effect": "Allow",
-#       "Action": "iam:*",
-#       "Resource": "*"
-#     }
-#   ]
-# }
-# EOT
+  #   policy = <<EOT
+  # {
+  #   "Version": "2012-10-17",
+  #   "Statement": [
+  #     {
+  #       "Effect": "Allow",
+  #       "Action": "iam:*",
+  #       "Resource": "*"
+  #     }
+  #   ]
+  # }
+  # EOT
 }
 
 # generally, these blocks would be in a different module
