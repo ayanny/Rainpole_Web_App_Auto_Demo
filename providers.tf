@@ -29,6 +29,7 @@ provider "aws" {
 
 provider "vault" {
 #  address   = local.hcp_vault_public_endpoint
+  version = "2.1.0"
   address = "https://rainpole-vault-cluster-public-vault-189353e2.b5e88078.z1.hashicorp.cloud:8200/ui/vault/secrets?namespace=admin"
   token   = var.vault_token
 }
