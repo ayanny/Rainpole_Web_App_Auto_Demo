@@ -16,8 +16,8 @@ terraform {
 }
 
 provider "aws" {
-  access_key = data.vault_generic_secret.aws.access_key
-  secret_key = data.vault_generic_secret.aws.secret_key
+  access_key = data.vault_aws_secret.aws.access_key
+  secret_key = data.vault_aws_secret.aws.secret_key
   region = var.aws_region
   default_tags {
     tags = {
@@ -29,12 +29,10 @@ provider "aws" {
 
 provider "vault" {
 #  address   = local.hcp_vault_public_endpoint
-  address = "https://rainpole-vault-cluster-public-vault-189353e2.b5e88078.z1.hashicorp.cloud"
+  address = "https://rainpole-vault-cluster-public-vault-189353e2.b5e88078.z1.hashicorp.cloud" #:8200/ui/vault/secrets?namespace=admin
   token   = var.vault_token
-#  namespace = local.hcp_vault_namespace
-
 }
 
-data "vault_generic_secret" "aws" {
+data "vault_aws_secret" "aws" {
   path = "aws/creds/my-role"
 }
