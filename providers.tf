@@ -29,10 +29,11 @@ provider "aws" {
 
 provider "vault" {
 #  address   = local.hcp_vault_public_endpoint
-  address = "https://rainpole-vault-cluster-public-vault-189353e2.b5e88078.z1.hashicorp.cloud" #:8200/ui/vault/secrets?namespace=admin
+  address = "https://rainpole-vault-cluster-public-vault-189353e2.b5e88078.z1.hashicorp.cloud:8200/ui/vault/secrets?namespace=admin"
   token   = var.vault_token
 }
 
 data "vault_aws_secret" "aws" {
   path = "aws/creds/my-role"
 }
+
