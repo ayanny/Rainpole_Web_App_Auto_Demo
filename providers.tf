@@ -51,19 +51,19 @@ resource "vault_aws_secret_backend_role" "role" {
   credential_type = "iam_user"
   name    = "my-role2"
 
-  policy = <<EOT
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": "iam:*",
-      "Resource": "*"
-    }
-  ]
-}
-EOT
-}
+#   policy = <<EOT
+# {
+#   "Version": "2012-10-17",
+#   "Statement": [
+#     {
+#       "Effect": "Allow",
+#       "Action": "iam:*",
+#       "Resource": "*"
+#     }
+#   ]
+# }
+# EOT
+# }
 
 # generally, these blocks would be in a different module
 data "vault_aws_access_credentials" "creds" {
