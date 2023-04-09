@@ -8,7 +8,7 @@ resource "aws_instance" "server" {
   vpc_security_group_ids      = var.vpc_security_group_ids
 #  srvr_count                       = var.srvr_count
   user_data_base64            = var.user_data_base64
-  user_data_replace_on_change = var.user_data_base64_change
+ # user_data_replace_on_change = var.user_data_base64_change
 
   tags = {
     "Name" = var.srvr_tag
