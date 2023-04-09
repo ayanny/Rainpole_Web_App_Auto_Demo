@@ -40,8 +40,10 @@ variable "user_data_base64" {
 
 variable "srvr_tag" {
   type = string
+  default = "Web_Server"
 }
 
 variable "user_data_base64_change" {
   type = string
+  default = true
 }
