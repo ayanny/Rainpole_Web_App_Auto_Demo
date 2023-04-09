@@ -26,7 +26,7 @@ variable "availability_zone" {
 }
 variable "vpc_security_group_ids" {
   description = "List of security group IDs to assign to the instance"
-  type = string
+  type = number
 }
 
 variable "srvr_count" {
