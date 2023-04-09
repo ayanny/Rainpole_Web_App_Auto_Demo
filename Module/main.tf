@@ -6,7 +6,11 @@ resource "aws_instance" "server" {
   subnet_id                   = var.subnet_id
   availability_zone           = var.availability_zone
   vpc_security_group_ids      = var.vpc_security_group_ids
-  count                       = var.web_count
+  count                       = var.srvr_count
   user_data_base64            = var.user_data_base64
-#  user_data_replace_on_change = true
+  user_data_replace_on_change = var.user_data_base64_change
+
+  tags = {
+    "Name" = var.srvr_tag
+  }
 }

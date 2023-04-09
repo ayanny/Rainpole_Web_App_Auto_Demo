@@ -25,7 +25,7 @@ module "web_server" {
   user_data_replace_on_change = true
 
   tags = {
-    "Name" = "Web_Server"
+    "Name" = var.srvr_tag
   }
 }
 

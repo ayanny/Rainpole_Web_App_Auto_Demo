@@ -29,7 +29,7 @@ variable "vpc_security_group_ids" {
   type = string
 }
 
-variable "web_count" {
+variable "srvr_count" {
   description = "Number of instances to launch"
   type = number
 }
@@ -38,3 +38,10 @@ variable "user_data_base64" {
   type = string
 }
 
+variable "srvr_tag" {
+  type = string
+}
+
+variable "user_data_base64_change" {
+  type = string
+}
