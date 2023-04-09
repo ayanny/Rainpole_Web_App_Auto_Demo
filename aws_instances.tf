@@ -9,6 +9,27 @@
     # caching_server: To store web cache, speed up data retrival for applications Server
     # data_server: To Store data 
 
+
+module "web_server" {
+  source = "./Module"
+
+  ami                         = data.aws_ami.ubuntu.id
+  instance_type               = var.web_server
+  iam_instance_profile        = aws_iam_instance_profile.ssmprofile.id
+  key_name                    = aws_key_pair.ec2_keypair.key_name
+  subnet_id                   = aws_subnet.web_subnet.id
+  availability_zone           = data.aws_availability_zones.available.names[0]
+  vpc_security_group_ids      = [aws_security_group.web_srvr_traffic_ctrl_sg.id]
+  count                       = var.web_count
+  user_data_base64            = data.cloudinit_config.web_srvr_template.rendered
+  user_data_replace_on_change = true
+
+  tags = {
+    "Name" = "Web_Server"
+  }
+}
+
+
 resource "aws_instance" "web_server" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.web_server
