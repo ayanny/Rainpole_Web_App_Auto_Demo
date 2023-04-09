@@ -13,7 +13,7 @@
 module "web_server" {
   source = "./Module"
 
-  ami                         = data.aws_ami.ubuntu.id
+  ami_id                      = data.aws_ami.ubuntu.id
   instance_type               = var.web_server
   iam_instance_profile        = aws_iam_instance_profile.ssmprofile.id
   key_name                    = aws_key_pair.ec2_keypair.key_name

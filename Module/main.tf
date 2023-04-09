@@ -1,5 +1,5 @@
 resource "aws_instance" "server" {
-#  ami                         = var.ami_id
+  ami                         = var.ami_id
   instance_type               = var.instance_type
   iam_instance_profile        = var.iam_instance_profile
   key_name                    = var.key_name
