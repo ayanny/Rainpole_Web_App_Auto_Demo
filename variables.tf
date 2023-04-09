@@ -144,17 +144,17 @@ variable "service" {
   default     = "fake-service"
 }
 
-variable "vault_token" {
-  description = "Vault Server Token, Token is saved as a senstive key-value in Terraform Cloud"
-  type        = string
-}
+# variable "vault_token" {
+#   description = "Vault Server Token, Token is saved as a senstive key-value in Terraform Cloud"
+#   type        = string
+# }
 
-variable "vault_access_key" {
-  description = "Vault Server Token, Token is saved as a senstive key-value in Terraform Cloud"
-  type        = string
-}
+# variable "vault_access_key" {
+#   description = "Vault Server Token, Token is saved as a senstive key-value in Terraform Cloud"
+#   type        = string
+# }
 
-variable "vault_secret_key" {
-  description = "Vault Server Token, Token is saved as a senstive key-value in Terraform Cloud"
-  type        = string
-}
+# variable "vault_secret_key" {
+#   description = "Vault Server Token, Token is saved as a senstive key-value in Terraform Cloud"
+#   type        = string
+# }
