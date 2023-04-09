@@ -43,7 +43,7 @@ variable "srvr_tag" {
   default = "Web_Server"
 }
 
-variable "user_data_base64_change" {
+variable "user_data_replace_on_change" {
   type = string
   default = true
 }
