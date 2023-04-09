@@ -22,11 +22,11 @@ module "web_server" {
   vpc_security_group_ids      = [aws_security_group.web_srvr_traffic_ctrl_sg.id]
   count                       = var.srvr_count
   user_data_base64            = data.cloudinit_config.web_srvr_template.rendered
-  user_data_replace_on_change = var.user_data_base64_change
+  # user_data_replace_on_change = var.user_data_base64_change
 
-  tags = {
-    "Name" = var.srvr_tag
-  }
+  # tags = {
+  #   "Name" = var.srvr_tag
+  # }
 }
 
 
