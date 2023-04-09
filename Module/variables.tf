@@ -34,7 +34,6 @@ variable "srvr_count" {
 }
 
 variable "user_data_base64" {
-  type = string
 }
 
 variable "srvr_tag" {
@@ -43,6 +42,5 @@ variable "srvr_tag" {
 }
 
 variable "user_data_replace_on_change" {
-  type = string
   default = true
 }
