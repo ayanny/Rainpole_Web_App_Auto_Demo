@@ -29,9 +29,9 @@ variable "vpc_security_group_ids" {
   type = string
 }
 
-variable "count" {
+variable "srvr_count" {
   description = "Number of instances to launch"
-  type = string
+  type = number
 }
 
 variable "user_data_base64" {
