@@ -28,10 +28,10 @@ variable "vpc_security_group_ids" {
   description = "List of security group IDs to assign to the instance"
 }
 
-variable "srvr_count" {
-  description = "Number of instances to launch"
-  type = number
-}
+# variable "srvr_count" {
+#   description = "Number of instances to launch"
+#   type = number
+# }
 
 variable "user_data_base64" {
 }
