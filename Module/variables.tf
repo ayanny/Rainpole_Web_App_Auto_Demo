@@ -31,7 +31,7 @@ variable "vpc_security_group_ids" {
 
 variable "count" {
   description = "Number of instances to launch"
-  type = number
+  type = string
 }
 
 variable "user_data_base64" {
