@@ -29,7 +29,7 @@ variable "vpc_security_group_ids" {
   type = string
 }
 
-variable "srvr_count" {
+variable "web_count" {
   description = "Number of instances to launch"
   type = number
 }
