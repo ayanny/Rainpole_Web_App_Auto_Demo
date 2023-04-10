@@ -10,7 +10,7 @@
     # data_server: To Store data 
 
 resource "aws_instance" "web_server" {
-  ami                         = data.aws_ami.ubuntu.id
+  ami                         = data.hcp_packer_image.us-west-2.cloud_image_id #data.aws_ami.ubuntu.id
   instance_type               = var.web_server
   iam_instance_profile        = aws_iam_instance_profile.ssmprofile.id
   key_name                    = aws_key_pair.ec2_keypair.key_name
@@ -27,7 +27,7 @@ resource "aws_instance" "web_server" {
 }
 
 resource "aws_instance" "app_server" {
-  ami                         = data.aws_ami.ubuntu.id
+  ami                         = data.hcp_packer_image.us-west-2.cloud_image_id
   instance_type               = var.app_server
   iam_instance_profile        = aws_iam_instance_profile.ssmprofile.id
   key_name                    = aws_key_pair.ec2_keypair.key_name
@@ -44,7 +44,7 @@ resource "aws_instance" "app_server" {
 }
 
 resource "aws_instance" "cache_server" {
-  ami                         = data.aws_ami.ubuntu.id
+  ami                         = data.hcp_packer_image.us-west-2.cloud_image_id
   instance_type               = var.cache_server
   iam_instance_profile        = aws_iam_instance_profile.ssmprofile.id
   key_name                    = aws_key_pair.ec2_keypair.key_name
@@ -62,7 +62,7 @@ resource "aws_instance" "cache_server" {
 
 # Instace to manage all payments created by customers
 resource "aws_instance" "bill_server" {
-  ami                         = data.aws_ami.ubuntu.id
+  ami                         = data.hcp_packer_image.us-west-2.cloud_image_id
   instance_type               = var.bill_server
   iam_instance_profile        = aws_iam_instance_profile.ssmprofile.id
   key_name                    = aws_key_pair.ec2_keypair.key_name
@@ -80,7 +80,7 @@ resource "aws_instance" "bill_server" {
 
 # Instace for RabitMQ server to manage msgs between instances
 resource "aws_instance" "rbmq_server" {
-  ami                         = data.aws_ami.ubuntu.id
+  ami                         = data.hcp_packer_image.us-west-2.cloud_image_id
   instance_type               = var.rbmq_server
   iam_instance_profile        = aws_iam_instance_profile.ssmprofile.id
   key_name                    = aws_key_pair.ec2_keypair.key_name
@@ -97,7 +97,7 @@ resource "aws_instance" "rbmq_server" {
 }
 
 resource "aws_instance" "data_server" {
-  ami                         = data.aws_ami.ubuntu.id
+  ami                         = data.hcp_packer_image.us-west-2.cloud_image_id
   instance_type               = var.data_server
   iam_instance_profile        = aws_iam_instance_profile.ssmprofile.id
   key_name                    = aws_key_pair.ec2_keypair.key_name
@@ -116,20 +116,32 @@ resource "aws_instance" "data_server" {
 # For ami, we need an AWS ami that supports SSM, SSM will be used to 
 # manage the instances for troubleshooting and pataching.
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-  owners      = ["099720109477"]
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
+data "hcp_packer_iteration" "ubuntu" {
+  bucket_name = var.bucket
+  channel = var.channel
 }
+
+data "hcp_packer_image" "us-west-2" {
+  bucket_name = var.bucket
+  iteration_id = data.hcp_packer_iteration.ubuntu.ulid
+  cloud_provider = "aws"
+  region = var.aws_region
+}
+
+# data "aws_ami" "ubuntu" {
+#   most_recent = true
+#   owners      = ["099720109477"]
+
+#   filter {
+#     name   = "name"
+#     values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+#   }
+
+#   filter {
+#     name   = "virtualization-type"
+#     values = ["hvm"]
+#   }
+# }
 
 # Create AWS SSH Key for EC2 Instances
 

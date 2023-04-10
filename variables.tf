@@ -144,17 +144,16 @@ variable "service" {
   default     = "fake-service"
 }
 
-# variable "vault_token" {
-#   description = "Vault Server Token, Token is saved as a senstive key-value in Terraform Cloud"
-#   type        = string
-# }
+# Required for Packer AMI
+variable "ami_prefix" {
+    type = string
+    # source = 
+}
 
-# variable "vault_access_key" {
-#   description = "Vault Server Token, Token is saved as a senstive key-value in Terraform Cloud"
-#   type        = string
-# }
+variable "bucket" {
+  description = "Put your HCP Packer Bucket in TFC"
+}
 
-# variable "vault_secret_key" {
-#   description = "Vault Server Token, Token is saved as a senstive key-value in Terraform Cloud"
-#   type        = string
-# }
+variable "channel" {
+  description = "HCP Packer Channel"
+}
