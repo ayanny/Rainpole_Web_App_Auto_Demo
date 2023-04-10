@@ -16,6 +16,7 @@ source "amazon-ebs" "us-west-2" {
     ami_name = "${var.ami_prefix}-${local.timestamp}"
     instance_type = "t2.micro"
     region = var.aws_region
+    vpc_id = "vpc-04ce026e7d56b01d3"
  
     source_ami_filter {
         filters = {
