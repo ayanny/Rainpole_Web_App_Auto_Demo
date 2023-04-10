@@ -30,3 +30,5 @@ provider "aws" {
   }
 }
 
+provider "hcp" {
+}
