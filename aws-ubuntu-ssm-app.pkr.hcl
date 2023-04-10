@@ -65,3 +65,9 @@ variable "aws_region" {
   type        = string
   default     = "us-west-2"
 }
+
+# Required for Packer AMI
+variable "ami_prefix" {
+    type = string
+    # source = 
+}

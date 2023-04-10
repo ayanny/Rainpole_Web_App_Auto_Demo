@@ -144,11 +144,6 @@ variable "service" {
   default     = "fake-service"
 }
 
-# Required for Packer AMI
-variable "ami_prefix" {
-    type = string
-    # source = 
-}
 
 variable "bucket" {
   description = "Put your HCP Packer Bucket in TFC"
