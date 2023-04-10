@@ -4,10 +4,10 @@
 
 ## Dev Env.
 # There are 4 applications configured:
-    # web_server: Public Facing Web Server for external Csutomer access
-    # application_server: Receives requests/data from Web Server
-    # caching_server: To store web cache, speed up data retrival for applications Server
-    # data_server: To Store data 
+# web_server: Public Facing Web Server for external Csutomer access
+# application_server: Receives requests/data from Web Server
+# caching_server: To store web cache, speed up data retrival for applications Server
+# data_server: To Store data 
 
 resource "aws_instance" "web_server" {
   ami                         = data.hcp_packer_image.us-west-2.cloud_image_id #data.aws_ami.ubuntu.id
@@ -118,31 +118,31 @@ resource "aws_instance" "data_server" {
 
 data "hcp_packer_iteration" "ubuntu" {
   bucket_name = var.bucket
-  channel = var.channel
+  channel     = var.channel
 }
 
 data "hcp_packer_image" "us-west-2" {
-  bucket_name = var.bucket
-  iteration_id = data.hcp_packer_iteration.ubuntu.ulid
+  bucket_name    = var.bucket
+  iteration_id   = data.hcp_packer_iteration.ubuntu.ulid
   cloud_provider = "aws"
-  region = var.aws_region
+  region         = var.aws_region
 }
 
 output "WebService" {
   description = "Public IP of your EC2 instance"
-  value = aws_eip.external_eip.address
-#  value       = aws_instance.hashitalk.public_ip
+  value       = aws_eip.external_eip.address
+  #  value       = aws_instance.hashitalk.public_ip
 }
 
 output "AMI-image-id" {
   value = data.hcp_packer_image.us-west-2.cloud_image_id
 }
 
-output "hashitalk-fingerprint-version" {
+output "Rainpole-fingerprint-version" {
   value = data.hcp_packer_iteration.ubuntu.fingerprint
 }
 
-output "hashitalk-active-image" {
+output "Rainpole-active-image" {
   value = data.hcp_packer_iteration.ubuntu.ulid
 }
 
