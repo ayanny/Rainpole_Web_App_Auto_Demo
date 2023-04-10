@@ -69,5 +69,5 @@ variable "aws_region" {
 # Required for Packer AMI
 variable "ami_prefix" {
     type = string
-    # source = 
+    default = "fake-service"
 }
