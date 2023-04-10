@@ -20,8 +20,8 @@ source "amazon-ebs" "us-west-2" {
     source_ami_filter {
         filters = {
             name = "ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"
-            #root-device-type = "ebs"
-            virtualization = "hvm"
+            root-device-type = "ebs"
+            virtualization-type = "hvm"
         }
         most_recent = true
         owners      = ["099720109477"] # Canonical
