@@ -60,3 +60,8 @@ hcp_packer_registry {
 }
 }
 
+variable "aws_region" {
+  description = "AWS Region Variable"
+  type        = string
+  default     = "us-west-2"
+}
