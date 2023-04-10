@@ -128,6 +128,24 @@ data "hcp_packer_image" "us-west-2" {
   region = var.aws_region
 }
 
+output "WebService" {
+  description = "Public IP of your EC2 instance"
+  value = aws_eip.external_eip.address
+#  value       = aws_instance.hashitalk.public_ip
+}
+
+output "AMI-image-id" {
+  value = data.hcp_packer_image.us-west-2.cloud_image_id
+}
+
+output "hashitalk-fingerprint-version" {
+  value = data.hcp_packer_iteration.ubuntu.fingerprint
+}
+
+output "hashitalk-active-image" {
+  value = data.hcp_packer_iteration.ubuntu.ulid
+}
+
 # data "aws_ami" "ubuntu" {
 #   most_recent = true
 #   owners      = ["099720109477"]
