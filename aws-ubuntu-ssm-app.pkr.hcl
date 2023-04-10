@@ -28,7 +28,8 @@ source "amazon-ebs" "us-west-2" {
         most_recent = true
         owners      = ["099720109477"] # Canonical
     }
-    #ssh_username = "ubuntu"
+    ssh_username = "ubuntu"
+    ssh_private_key_file = "/rainpole_packer_key.pem"
 
     tags = {
         Name = "rainpole_ami_ssm_image"
