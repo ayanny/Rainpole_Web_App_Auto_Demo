@@ -17,6 +17,7 @@ source "amazon-ebs" "us-west-2" {
     instance_type = "t2.micro"
     region = var.aws_region
     vpc_id = "vpc-04ce026e7d56b01d3"
+    subnet_id = "subnet-00c822310edb721a3"
  
     source_ami_filter {
         filters = {
