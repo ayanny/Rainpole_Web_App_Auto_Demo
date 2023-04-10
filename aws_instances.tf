@@ -130,7 +130,7 @@ data "hcp_packer_image" "us-west-2" {
 
 output "WebService" {
   description = "Public IP of your EC2 instance"
-  value       = aws_instance.web_server.public_ip   #aws_eip.external_eip.address
+  value       = aws_eip.external_eip.public_ip
 }
 
 output "AMI-image-id" {
