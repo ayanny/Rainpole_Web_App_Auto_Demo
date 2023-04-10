@@ -130,8 +130,7 @@ data "hcp_packer_image" "us-west-2" {
 
 output "WebService" {
   description = "Public IP of your EC2 instance"
-  value       = aws_eip.external_eip.address
-  #  value       = aws_instance.hashitalk.public_ip
+  value       = aws_instance.web_server.public_ip   #aws_eip.external_eip.address
 }
 
 output "AMI-image-id" {
@@ -145,21 +144,6 @@ output "Rainpole-fingerprint-version" {
 output "Rainpole-active-image" {
   value = data.hcp_packer_iteration.ubuntu.ulid
 }
-
-# data "aws_ami" "ubuntu" {
-#   most_recent = true
-#   owners      = ["099720109477"]
-
-#   filter {
-#     name   = "name"
-#     values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-#   }
-
-#   filter {
-#     name   = "virtualization-type"
-#     values = ["hvm"]
-#   }
-# }
 
 # Create AWS SSH Key for EC2 Instances
 
