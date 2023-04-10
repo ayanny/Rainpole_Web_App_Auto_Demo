@@ -7,12 +7,6 @@ packer {
     }
 }
 
-# variable "aws_region" {
-#   description = "AWS Region Variable"
-#   type        = string
-#   default     = "us-west-2"
-# }
-
 # Variable for AMI-Name -> AMI-Name are unique
 locals {
     timestamp = regex_replace(timestamp(), "[- TZ:", "")
