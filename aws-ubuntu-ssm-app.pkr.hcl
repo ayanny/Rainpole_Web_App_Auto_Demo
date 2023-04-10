@@ -13,7 +13,7 @@ locals {
 }
 
 source "amazon-ebs" "us-west-2" {
-    amir_name = "${var.ami_prefix}-${local.timestamp}"
+    ami_name = "${var.ami_prefix}-${local.timestamp}"
     instance_type = "t2.micro"
     region = var.aws_region
  
