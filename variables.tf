@@ -143,3 +143,13 @@ variable "service" {
   type        = string
   default     = "fake-service"
 }
+
+# The following is required for Packer Images
+
+variable "bucket" {
+  description = "Put your HCP Packer Bucket in TFC"
+}
+
+variable "channel" {
+  description = "HCP Packer Channel"
+}
