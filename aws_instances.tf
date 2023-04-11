@@ -171,8 +171,3 @@ output "Rainpole-fingerprint-version" {
 output "Rainpole-active-image" {
   value = data.hcp_packer_iteration.ubuntu.ulid
 }
-
-resource "aws_key_pair" "ec2_keypair" {
-  key_name   = "rainpoleappkey"
-  public_key = tls_private_key.ssh_key.public_key_openssh
-}
