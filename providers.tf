@@ -12,6 +12,10 @@ terraform {
       source  = "hashicorp/cloudinit"
       version = ">=2.2.0"
     }
+    hcp = {
+      source  = "hashicorp/hcp"
+      version = ">= 0.11.0"
+    }    
   }
 }
 
@@ -22,4 +26,8 @@ provider "aws" {
       Environment = var.environment
     }
   }
+}
+
+# Adding Hashicorp Packer Provider
+provider "hcp" {
 }
