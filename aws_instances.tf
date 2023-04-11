@@ -172,13 +172,6 @@ output "Rainpole-active-image" {
   value = data.hcp_packer_iteration.ubuntu.ulid
 }
 
-# Create AWS SSH Key for EC2 Instances
-
-resource "tls_private_key" "ssh_key" {
-  algorithm = "RSA"
-  rsa_bits  = "4096"
-}
-
 resource "aws_key_pair" "ec2_keypair" {
   key_name   = "rainpoleappkey"
   public_key = tls_private_key.ssh_key.public_key_openssh
