@@ -12,7 +12,7 @@ import "tfplan/v2" as tfplan
 current_time = time.now.hour
 
 
-environment_tag_value = "production"
+environment_tag_value = "prod"
 
 
 # This line checks if the current time is between 9 AM and 1 AM the following day, inclusive.
