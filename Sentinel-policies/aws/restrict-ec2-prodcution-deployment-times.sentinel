@@ -17,7 +17,7 @@ environment_tag_value = "production"
 
 # This line checks if the current time is between 9 AM and 1 AM the following day, inclusive.
 # It assigns the boolean result to a variable called "restricted_times".
-restricted_times = current_time >= 9 or current_time <= 1
+restricted_times = current_time >= 20 or current_time <= 8
 
 # This line filters the changes in the Terraform plan by keeping only resources that are
 # "managed" and have a change action of "create", "update", or "delete". It assigns the result to a variable called "resources".

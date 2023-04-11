@@ -1,34 +1,51 @@
 
+# This Sentinel policy checks two conditions related to AWS EC2 instances and AMIs (Amazon Machine Images) 
+# in both the Terraform configuration (.tf files) and the Terraform state file:
 
+# It checks if EC2 instances are using data sources for their AMI references.
+# It checks if AMI data sources are configured to use the most recent version of the AMI.
+
+
+# Import the "tfstate-functions" and "tfconfig-functions" 
+# modules to use their functions for processing Terraform state files and configuration files, respectively.
 import "tfstate-functions" as state
-
 
 import "tfconfig-functions" as config
 
-
+# Find all AWS EC2 instances in the Terraform configuration using the config.find_resources_by_type function.
 allEC2Instances = config.find_resources_by_type("aws_instance")
 
 
-
+# Filter out instances that don't have an AMI reference from a data source using config.filter_attribute_does_not_match_regex. 
+# The regular expression ^data\\.aws_ami\\.(.*)$ checks if the "config.ami" attribute value starts with "data.aws_ami.".
 violatingEC2Instances = config.filter_attribute_does_not_match_regex(allEC2Instances,
     "config.ami", "^data\\.aws_ami\\.(.*)$", true)
 
+# Calculate the number of EC2 instances violating the first condition (EC2InstanceViolations).
 EC2InstanceViolations = length(violatingEC2Instances["messages"])
 
-
+# Find all AWS AMI data sources in the Terraform state file using the state.find_datasources function
 allAMIs = state.find_datasources("aws_ami")
 
-
+# Filter out AMI data sources that don't have the "most_recent" attribute set to 
+# "true" using state.filter_attribute_is_not_value.
 violatingAMIs = state.filter_attribute_is_not_value(allAMIs, "most_recent", true, true)
 
-
+# Calculate the number of AMI data sources violating the second condition (AMIViolations).
 AMIViolations = length(violatingAMIs["messages"])
 
+# Calculate the total number of violations by adding both violation counts.
 violations = EC2InstanceViolations + AMIViolations
 
 
-# Main Rule
+# Define the main rule, which checks if there are no violations (violations is 0). 
+# If this condition is met, the policy passes; otherwise, it fails.
 
 main = rule {
     violations is 0
 }
+
+# When this Sentinel policy is applied to a Terraform run, it enforces that all AWS 
+# EC2 instances use data source references for their AMIs and that all AMI data sources 
+# are configured to use the most recent version of the AMI. If any instances or AMI data 
+# sources do not meet these conditions, the policy will fail, preventing the Terraform run from being applied.
