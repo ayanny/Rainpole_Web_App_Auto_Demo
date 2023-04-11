@@ -1,3 +1,5 @@
+####### THIS POLICY DOES NOT APPLY FOR DEV, I ADDED IT HERE FOR VISIBILITY ONLY########
+
 ## This policy uses the standard import time to restrict infrastructure
 # changes to off-peak hours 1am - 9am MST
 import "time"

@@ -68,8 +68,3 @@ policy "restrict-az" {
     source = "./restrict-az.sentinel"
     enforcement_level = "soft-mandatory"
 }
-
-policy "restrict-ec2-prodcution-deployment-times" {
-    source = "./restrict-ec2-prodcution-deployment-times.sentinel"
-    enforcement_level = "soft-mandatory"
-}
