@@ -1,27 +1,36 @@
 
 
-import "tfplan-functions" as plan
+# This policy focuses on the "Environment" tag for AWS EC2 instances. 
+# The policy checks if EC2 instances have the required "Environment" tag and valid values for this tag.
 
+# Import the "tfplan-functions" module to use its functions for processing Terraform plans.
+import "tfplan-functions" as plan
 
 mandatory_tags = ["Environment"]
 
+# Define the list of mandatory tags ("Environment") and allowed "Environment" tag values ("dev" and "prod").
+allowed_environments = ["dev"]
 
-allowed_environments = ["dev", "prod"]
-
-
+# Find all AWS EC2 instances in the Terraform plan using the plan.find_resources function.
 allEC2Instances = plan.find_resources("aws_instance")
 
-# Tags_all is for Environment tag that is confgired at the provider level.
+# Filter out instances that don't have the mandatory "Environment" tag in their "tags_all" attribute using 
+# plan.filter_attribute_not_contains_list. # The "tags_all" attribute is used here because it includes tags 
+# that are configured at the provider level.
 EC2InstancesWithoutEnvironmentTagAll = plan.filter_attribute_not_contains_list(allEC2Instances,
     "tags_all", mandatory_tags, true)
 
+# Filter out instances that have an invalid "Environment" tag value in their "tags_all" 
+# attribute using plan.filter_attribute_map_key_contains_items_not_in_list.
 Ec2InstancesWithInvalidEnvironmentTagAll = plan.filter_attribute_map_key_contains_items_not_in_list(allEC2Instances,
     "tags_all", "Environment", allowed_environments, true)
 
+# Calculate the total number of tag violations by adding the lengths of both filtered lists.
 tag_violations = length(EC2InstancesWithoutEnvironmentTagAll["messages"]) + length(Ec2InstancesWithInvalidEnvironmentTagAll["messages"])
 
 
-# Main Rule
+# Define the main rule, which checks if there are no tag violations (tag_violations is 0). 
+# If this condition is met, the policy passes; otherwise, it fails.e
 main = rule {
     tag_violations is 0
 }

@@ -1,23 +1,29 @@
 
+# This Sentinel policy checks that all AWS EC2 instances in the Terraform plan are 
+# created within specific allowed availability zones. 
 
+# When this Sentinel policy is applied to a Terraform run, it enforces that all 
+# AWS EC2 instances are created within the specified allowed availability zones. 
+# If any instances are not in the allowed zones, the policy will fail, preventing the Terraform run from being applied.
 
-
+# Import the "tfplan-functions" module to use its functions for processing Terraform plans.
 import "tfplan-functions" as plan
 
-
+# Define the allowed availability zones list (allowed_zones).
 allowed_zones = [
-    "us-east-1a", "us-east-1b", "us-west-1c", "us-west-1a",
+    "us-east-1a", "us-east-1b", "us-west-2c", "us-west-2a",
 ]
-
+# Find all AWS EC2 instances in the Terraform plan using the plan.find_resources function.
 allEC2Instances = plan.find_resources("aws_instance")
 
-
+# Filter out instances that don't have their availability_zone attribute within the allowed zones list using the 
+# plan.filter_attribute_not_contains_list function.
 violatingEC2Instances = plan.filter_attribute_not_contains_list(allEC2Instances,
     "availability_zone", allowed_zones, true)
 
 
-# Main Rule
-
+# Define the main rule, which checks if there are no violating EC2 instances (length of violatingEC2Instances["messages"] is 0). 
+# If this condition is met, the policy passes; otherwise, it fails.
 main = rule {
     length(violatingEC2Instances["messages"]) is 0
 }

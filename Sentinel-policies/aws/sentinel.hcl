@@ -17,6 +17,8 @@ module "aws-functions" {
 
 }
 
+# These are the policy sets, the below policies will be executed, any policy not in the list will not be executed.
+
 policy "check-ec2-application-tags" {
     source = "./check-ec2-application-tags.sentinel"
     enforcement_level = "soft-mandatory"

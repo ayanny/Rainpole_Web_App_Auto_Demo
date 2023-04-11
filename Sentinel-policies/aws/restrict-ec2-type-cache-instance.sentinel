@@ -1,20 +1,31 @@
 
+# This Sentinel policy is checking if AWS EC2 instances with a specific "Name" tag have allowed instance types.
 
+# The policy will pass if there are no violations, meaning that all EC2 instances with the specified 
+# "Name" tag have allowed instance types. If there are violations, the policy will fail, indicating 
+# that some instances do not meet the requirements set in the policy.
+
+# import from tfplan-functions into plan, tf-plan functions is a downloaded lib from 
+# aws hashicorp templates.
 
 import "tfplan-functions" as plan
 
+# The following is the allowed instance types for the Application Server.
+allowed_types = ["t2.medium"]
 
-allowed_types = ["t2.micro", "t2.medium"]
-
-
+# This is the allowed application Server that we will match againest the previous instances.
 allowed_applications = ["Cache_Server"]
 
 
 allEC2Instances = plan.find_resources("aws_instance")
 
+# Filter the found EC2 instances to get those with a "Name" tag matching the allowed applications. 
+# This is done using the filter_attribute_map_key_contains_items_in_list function from the plan module.
 EC2InstancesWithCacheNameTag = plan.filter_attribute_map_key_contains_items_in_list(allEC2Instances,
     "tags", "Name", allowed_applications, true)
 
+# Filter the previously filtered EC2 instances to get those with an instance type that is NOT in the 
+# list of allowed instance types, using the filter_attribute_not_in_list function from the plan module.
 EC2InstancesWithInvalidType = plan.filter_attribute_not_in_list(EC2InstancesWithCacheNameTag["resources"], 
     "instance_type", allowed_types, true)
 

@@ -1,23 +1,40 @@
 
+# This specific policy checks that all AWS EC2 instances have 
+# the mandatory "Name" tag and that the value of the "Name" tag 
+# is within the allowed list of applications.
+
+# Import common-functions/tfplan-functions/tfplan-functions.sentinel
+# with alias "plan"
+
 import "tfplan-functions" as plan
 
+# Define mandatory tags Variable
 mandatory_tags  = ["Name"]
 
+# Allowed Applications
 allowed_applications    = ["Web_Server", "Application_Server", "Cache_Server", "DataStore_Server", "Billing_Server", "RabbitMQ_Server"]
 
+# Get all EC2 instances
 allEC2Instances = plan.find_resources("aws_instance")
 
-
+# Filter to EC2 instances that are missing the Application tag
+# Warnings will be printed for all violations since the last 
+# parameter is true
 EC2InstancesWithoutServerTag = plan.filter_attribute_not_contains_list(allEC2Instances,
     "tags", mandatory_tags, true)
 
-
+# Filter to EC2 instances that have the Application tag with an invalid value
+# Warnings will be printed for all violations since the last parameter is true
 EC2InstancesWithInvalildSeverTag = plan.filter_attribute_map_key_contains_items_not_in_list(allEC2Instances,
     "tags", "Name", allowed_applications, true)
 
-
+# Calculate the total number of tag violations by adding the 
+# lengths of both filtered lists.
 tag_violations = length(EC2InstancesWithInvalildSeverTag["messages"]) + length(EC2InstancesWithoutServerTag["messages"])
 
+# Define the main rule, which checks if there are no tag 
+# violations (tag_violations is 0). If this condition is met, 
+# the policy passes; otherwise, it fails.
 main = rule {
     tag_violations is 0
 }
