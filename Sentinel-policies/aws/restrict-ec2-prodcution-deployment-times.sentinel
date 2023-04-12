@@ -1,5 +1,5 @@
 ## This policy uses the standard import time to restrict infrastructure
-# changes to off-peak hours 1am - 9am UTC
+# changes to off-peak hours 8am to 8pm UTC
 
 import "time"
 import "tfplan-functions" as plan
