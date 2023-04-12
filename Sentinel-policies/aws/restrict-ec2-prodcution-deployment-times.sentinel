@@ -9,7 +9,7 @@ import "tfplan/v2" as tfplan
 # This line gets the current hour from the system time using the "time.now()"
 # function and stores it in a variable called "current_time".
 
-current_time = time.now().hour()
+current_time = time.now.hour()
 # current_time = time.hour(tfplan.timestamp())
 
 environment_tag_value = "prod"
