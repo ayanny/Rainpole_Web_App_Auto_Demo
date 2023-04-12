@@ -81,6 +81,8 @@ resource "aws_lb" "rbmq_srvr_lb" {
 
 # Now Create the Target groups for LBs, 
 # the TGs are the subset of EC2 instances targeted by the LB
+# Target Group: A target group is a group of instances that receive traffic from a load balancer. 
+# You must create a target group and register instances with it before you can use your load balancer.
 
 resource "aws_lb_target_group" "web_srvr_tg" {
   name     = "WebSrvrTg"
@@ -126,6 +128,9 @@ resource "aws_lb_target_group" "rbmq_srvr_tg" {
 
 
 # The next requirement is to configure LB Listeners for reach server/application
+# Listener: A listener is a process that checks for connection requests from clients, 
+# using the protocol and port that you specify. You must create a listener and specify 
+# the protocol and port that you want to use.
 
 resource "aws_lb_listener" "web_srvr_lb_listener" {
   load_balancer_arn = aws_lb.ext_lb.arn

@@ -104,6 +104,11 @@ resource "aws_nat_gateway" "nat_gw" {
 # Now we need to configure routing, routing requires route tables.
 # Create RT for External traffic
 
+# The route block inside the aws_route_table resource defines a default route that directs
+# all network traffic with a destination IP address of 0.0.0.0/0 (i.e. all traffic) to an 
+# Internet Gateway resource. The Internet Gateway resource is specified by the gateway_id attribute, 
+# which is set to the ID of an existing aws_internet_gateway resource called internet_gw.
+
 resource "aws_route_table" "external_subnets_rt" {
   vpc_id = aws_vpc.rainpole_vpc.id
 
