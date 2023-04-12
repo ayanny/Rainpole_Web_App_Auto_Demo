@@ -1,3 +1,5 @@
+# This section specifies the required Packer plugins needed for the configuration, 
+# in this case, the Amazon plugin version 1.0.4 or later.
 packer {
     required_plugins {
         amazon = {
@@ -8,9 +10,17 @@ packer {
 }
 
 # Variable for AMI-Name -> AMI-Name are unique
+# This section defines a local variable timestamp using the regex_replace 
+# function to replace any occurrences of -, T, Z, or : in the timestamp() value with an empty string.
 locals {
     timestamp = regex_replace(timestamp(), "[- TZ:]", "")
 }
+
+# This section defines the Amazon Elastic Block Store (EBS) source configuration block. 
+# It specifies the AMI name, instance type, AWS region, VPC ID, and subnet ID to use for 
+# the source instance. It also specifies the source AMI filter to use for selecting the source AMI, 
+# as well as the SSH username, keypair name, and private key file to use for SSH connections. 
+# Finally, it defines tags to apply to both the source instance and the resulting AMI.
 
 source "amazon-ebs" "us-west-2" {
     ami_name = "${var.ami_prefix}-${local.timestamp}"
@@ -41,6 +51,10 @@ source "amazon-ebs" "us-west-2" {
     }
 }
 
+# This section specifies the build block for Packer. It specifies the build name, 
+# sources, and then adds additional metadata such as build and bucket labels, 
+# and a description of the Packer build.
+
 build {
     name = "rainpole"
     sources = [
@@ -64,6 +78,8 @@ hcp_packer_registry {
     }
 }
 }
+
+# This section defines a Terraform variable named aws_region with a default value of us-west-1.
 
 variable "aws_region" {
   description = "AWS Region Variable"
