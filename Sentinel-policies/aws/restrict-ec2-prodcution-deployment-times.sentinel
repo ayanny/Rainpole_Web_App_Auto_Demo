@@ -9,7 +9,7 @@ import "tfplan/v2" as tfplan
 # This line gets the current hour from the system time using the "time.now()"
 # function and stores it in a variable called "current_time".
 
-current_time = time.now.hour
+current_time = time.now().Hour()
 
 
 environment_tag_value = "prod"
@@ -17,7 +17,7 @@ environment_tag_value = "prod"
 
 # This line checks if the current time is between 8 AM and 8 PM on a working day, inclusive.
 # It assigns the boolean result to a variable called "restricted_times".
-restricted_times = current_time >= 8 or current_time <= 20
+restricted_times = current_time >= 8 and current_time <= 20
 
 # This line filters the changes in the Terraform plan by keeping only resources that are
 # "managed" and have a change action of "create", "update", or "delete". It assigns the result to a variable called "resources".
