@@ -11,7 +11,7 @@ import "tfplan-functions" as plan
 
 # Define the allowed availability zones list (allowed_zones).
 allowed_zones = [
-    "us-east-1a", "us-east-1b", "us-west-1c", "us-west-1a",
+    "us-east-1a", "us-west-1", "us-east-1b", "us-west-1c", "us-west-1a",
 ]
 # Find all AWS EC2 instances in the Terraform plan using the plan.find_resources function.
 allEC2Instances = plan.find_resources("aws_instance")
